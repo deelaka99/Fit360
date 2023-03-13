@@ -37,5 +37,15 @@
     <string name="txtHome1">Track Your Exercies</string>
     <string name="txtHome2">Log some water</string>
     <string name="txtHome3">Start Logging your food</string>
-
+    <string name="txtHome4">Edit your profile : </string>
+    <string name="txtEditProfile1">Paul Stirling</string>
+    <string name="txtEditProfile2">Sex</string>
+    <string name="txtEditProfile3">Male</string>
+    <string name="txtEditProfile4">Birthday</string>
+    <string name="txtEditProfile5">2022/12/02</string>
+    <string name="txtEditProfile6">Height</string>
+    <string name="txtEditProfile7">167cm</string>
+    <string name="txtEditProfile8">Weight</string>
+    <string name="txtEditProfile9">75Kg</string>
+    <string name="txtEditProfile10">Eit Profile</string>
 </resources>

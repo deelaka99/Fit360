@@ -20,12 +20,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAppName5"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtAppName5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="544dp"
         android:fontFamily="monospace"
         android:text="@string/app_name"
         android:textAlignment="center"
@@ -35,14 +36,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEditProfile" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnExercies"
         android:layout_width="261dp"
         android:layout_height="88dp"
-        android:background="@android:color/holo_orange_light"
+        android:background="@color/purple_500"
         android:text="@string/txtHome1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,27 +51,51 @@
         app:layout_constraintVertical_bias="0.201" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnWater"
         android:layout_width="261dp"
         android:layout_height="88dp"
-        android:background="@color/material_dynamic_primary60"
+        android:background="@color/purple_700"
         android:text="@string/txtHome2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/btnExercies"
         app:layout_constraintVertical_bias="0.134" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnFood"
         android:layout_width="261dp"
         android:layout_height="88dp"
-        android:background="@color/green"
+        android:background="#8BC34A"
         android:text="@string/txtHome3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/btnWater"
         app:layout_constraintVertical_bias="0.237" />
+
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:background="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.91"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txtHome4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditProfile"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
