@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.097">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView1"
             android:layout_width="133dp"
             android:layout_height="111dp"
             android:background="@drawable/image4"
@@ -85,7 +85,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alata"
@@ -94,8 +94,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.409"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.297" />
 
@@ -106,10 +105,8 @@
             android:text="@string/txtHome5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            app:layout_constraintVertical_bias="0.272" />
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,7 +122,7 @@
         app:layout_constraintVertical_bias="0.105">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView2"
             android:layout_width="80dp"
             android:layout_height="101dp"
             android:background="@drawable/image5"
@@ -136,7 +133,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/alata"
@@ -145,8 +142,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.409"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.297" />
 
@@ -157,10 +153,10 @@
             android:text="@string/txtHome5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            app:layout_constraintVertical_bias="0.272" />
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintVertical_bias="0.384" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -175,7 +171,7 @@
         app:layout_constraintVertical_bias="0.291">
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView3"
             android:layout_width="88dp"
             android:layout_height="73dp"
             android:background="@drawable/image6"
@@ -186,19 +182,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/alata"
             android:text="@string/txtHome3"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.409"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.297" />
+            app:layout_constraintVertical_bias="0.361" />
 
         <Button
             android:id="@+id/btnEx3"
@@ -207,10 +203,9 @@
             android:text="@string/txtHome5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            app:layout_constraintVertical_bias="0.272" />
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.428" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
