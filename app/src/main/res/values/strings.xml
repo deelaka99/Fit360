@@ -55,4 +55,6 @@
     <string name="txtExercise4">Running</string>
     <string name="txtExercise5">Cycling</string>
     <string name="txtExercise6">800 Steps</string>
+    <string name="txtExercise7">5 Km</string>
+    <string name="txtExercise8">4 Km</string>
 </resources>
