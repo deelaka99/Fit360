@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Fit360</string>
+    <string name="app_creation">Developed By Deelaka</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_reg">Register</string>
+    <string name="txtForgotPassword">Forgot Password</string>
+    <string name="btn_next">Next</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtPassword">Password</string>
+    <string name="txtReg1">Let\'s get started!</string>
+    <string name="txtReg2">I agree to the Fit360 Terms of Service. Please also read the Privacy Policy including the Cookie Use statement.</string>
+    <string name="txtReg3">Keep me updated about Fit360 products.</string>
+    <string name="txtReg21">Check Your Email!</string>
+    <string name="txtReg22">We sent an email to:</string>
+    <string name="txtReg23">123wejith@gmail.com</string>
+    <string name="txtReg24">Follow the steps in the email to verify address.
+    You\'ll be able to continue setting up your
+    account from here
+    after you verify your email address.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="txtReg31">About You</string>
+    <string name="txtReg32">First name</string>
+    <string name="txtReg33">Last name</string>
+    <string name="txtReg34">Birthday</string>
+    <string name="txtReg35">Height</string>
+    <string name="txtReg36">Sex</string>
+    <string name="txtReg37">Weight</string>
+    <string name="txtReg38"></string>
+    <string name="btnCAccount">Create An Account</string>
+
+</resources>
