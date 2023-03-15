@@ -1,12 +1,10 @@
 package com.deelaka.appfit360.waterTracker;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.deelaka.appfit360.R;
@@ -14,9 +12,11 @@ import com.deelaka.appfit360.ViewPagerFragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.Objects;
+
 public class WaterTrackerActivity extends AppCompatActivity {
     ViewPagerFragmentAdapter viewPagerFragmentAdapter;
-    private TabLayout tabLayout;
+    TabLayout tabLayout;
     ViewPager2 viewPager2;
     String[] titles = new String[]{"Home","History"};
 
@@ -25,7 +25,11 @@ public class WaterTrackerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_tracker);
 
-        getSupportActionBar().hide();
+        //Formatting action bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.teal_200)));
+
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager);
         viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(this);
