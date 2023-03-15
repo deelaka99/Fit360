@@ -57,4 +57,7 @@
     <string name="txtExercise6">800 Steps</string>
     <string name="txtExercise7">5 Km</string>
     <string name="txtExercise8">4 Km</string>
+    <string name="txtExercise9">View map</string>
+    <string name="txtMap1">You ran 5Km</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
