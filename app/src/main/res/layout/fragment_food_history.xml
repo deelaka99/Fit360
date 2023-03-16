@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".waterTracker.History">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".foodTracker.FoodHistory">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
@@ -169,10 +167,10 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.115"
             app:layout_constraintStart_toEndOf="@+id/textView17"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="0.166" />
+            app:layout_constraintVertical_bias="0.181" />
 
         <TextView
             android:id="@+id/textView19"
@@ -182,10 +180,10 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.166"
+            app:layout_constraintHorizontal_bias="0.116"
             app:layout_constraintStart_toEndOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
-            app:layout_constraintVertical_bias="0.166" />
+            app:layout_constraintVertical_bias="0.159" />
 
         <TextView
             android:id="@+id/textView20"
@@ -220,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
-        android:text="@string/waterHis9"
+        android:text="@string/foodHis1"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -248,7 +246,7 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/waterHis13"
+        android:text="@string/foodHis2"
         android:textColor="@color/teal_200"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -316,7 +314,7 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/waterHis13"
+        android:text="@string/foodHis2"
         android:textColor="@color/teal_200"
         android:textSize="22sp"
         android:textStyle="bold"

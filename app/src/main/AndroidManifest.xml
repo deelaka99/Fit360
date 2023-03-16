@@ -15,9 +15,13 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".foodTracker.FoodTrackerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
+        <activity
             android:name=".waterTracker.WaterTrackerActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".ExercisceActivity"
             android:exported="false" />
@@ -55,9 +59,9 @@
         <activity android:name=".LogRegMenuActivity" />
 
         <meta-data
-            android:resource="@array/preloaded_fonts"
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBx2N--ZQcVclcVgghgzHPjFb0zzJQUvRg"/>
+            android:resource="@array/preloaded_fonts"
+            android:value="AIzaSyBx2N--ZQcVclcVgghgzHPjFb0zzJQUvRg" />
     </application>
 
 </manifest>

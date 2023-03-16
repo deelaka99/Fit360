@@ -33,6 +33,10 @@
     <string name="txtReg35">Height</string>
     <string name="txtReg36">Sex</string>
     <string name="txtReg37">Weight</string>
+    <string name="txtReg38">cm</string>
+    <string name="txtReg39">Kg</string>
+    <string name="txtReg40">Male</string>
+    <string name="txtReg41">Female</string>
     <string name="btnCAccount">Create An Account</string>
     <string name="txtHome1">Track Your Exercies</string>
     <string name="txtHome2">Log some water</string>
@@ -78,5 +82,9 @@
     <string name="waterHis12">Weekly percentage</string>
     <string name="waterHis13">0ml/day</string>
     <string name="waterHis14">80%</string>
+    <string name="foodHome1">400/2000cal</string>
+    <string name="foodHome2">Daily Calories Target</string>
+    <string name="foodHis1">Food\'s Calories Report</string>
+    <string name="foodHis2">0cal/day</string>
 
 </resources>
