@@ -64,4 +64,19 @@
     <string name="waterHome2">Daily Drink Target</string>
     <string name="waterHome3">Edit Target</string>
     <string name="waterHome4">Today\'s Record</string>
+    <string name="waterHis1">Weekly completion</string>
+    <string name="waterHis2">Sun</string>
+    <string name="waterHis3">Mon</string>
+    <string name="waterHis4">Tue</string>
+    <string name="waterHis5">Wen</string>
+    <string name="waterHis6">Thu</string>
+    <string name="waterHis7">Fri</string>
+    <string name="waterHis8">Sat</string>
+    <string name="waterHis9">Drink Water Report</string>
+    <string name="waterHis10">Weekly average</string>
+    <string name="waterHis11">Monthly average</string>
+    <string name="waterHis12">Weekly percentage</string>
+    <string name="waterHis13">0ml/day</string>
+    <string name="waterHis14">80%</string>
+
 </resources>
