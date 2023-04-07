@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +15,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class RegisterActivity1 extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText etEmail, etPassword;
-    Button btnNext;
-    TextView backToLogin;
+    Button btnLogin;
+    TextView backToRegister;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
@@ -34,7 +32,7 @@ public class RegisterActivity1 extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(RegisterActivity1.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
@@ -43,24 +41,24 @@ public class RegisterActivity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register1);
-        mAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_login);
 
-        etEmail = findViewById(R.id.etEmail);
-        etPassword = findViewById(R.id.etPassword);
-        btnNext = findViewById(R.id.btnNextR1);
+        etEmail = findViewById(R.id.etEmailL);
+        etPassword = findViewById(R.id.etPasswordL);
+        btnLogin = findViewById(R.id.btnLoginL);
         progressBar = findViewById(R.id.progressBar);
-        backToLogin = findViewById(R.id.backToLogin);
+        backToRegister = findViewById(R.id.backToRegister);
 
-        backToLogin.setOnClickListener(new View.OnClickListener() {
+        backToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity1.this, LoginActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity1.class);
                 startActivity(intent);
                 finish();
             }
         });
-        btnNext.setOnClickListener(new View.OnClickListener() {
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
@@ -71,33 +69,34 @@ public class RegisterActivity1 extends AppCompatActivity {
 
                 //check email and password fields are empty or not
                 if (TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterActivity1.this, "Enter email!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter email!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity1.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
+                mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    // If sign in success, display a message to the user.
-                                    Toast.makeText(RegisterActivity1.this, "Account created!.",
-                                            Toast.LENGTH_SHORT).show();
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity1.this, "Authentication failed.",
+
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+
                                 }
                             }
                         });
-
-                Intent intent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
