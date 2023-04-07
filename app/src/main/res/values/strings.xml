@@ -37,6 +37,8 @@
     <string name="txtReg39">Kg</string>
     <string name="txtReg40">Male</string>
     <string name="txtReg41">Female</string>
+    <string name="txtReg42">Click here to create an account</string>
+    <string name="txtReg43">Click here to Login</string>
     <string name="btnCAccount">Create An Account</string>
     <string name="txtHome1">Track Your Exercies</string>
     <string name="txtHome2">Log some water</string>

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.deelaka.appfit360.ui.login.LoginActivity;
+import com.deelaka.appfit360.LoginActivity;
 
 public class LogRegMenuActivity extends AppCompatActivity {
 
