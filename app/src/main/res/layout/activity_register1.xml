@@ -60,12 +60,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toEndOf="@+id/myCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/cbTOS"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
         app:layout_constraintVertical_bias="0.083" />
 
     <CheckBox
-        android:id="@+id/myCheckBox"
+        android:id="@+id/cbTOS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,12 +85,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.193"
-        app:layout_constraintStart_toEndOf="@+id/myCheckBox2"
+        app:layout_constraintStart_toEndOf="@+id/cbUpdate"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.053" />
 
     <CheckBox
-        android:id="@+id/myCheckBox2"
+        android:id="@+id/cbUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

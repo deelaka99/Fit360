@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.036" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/txtEmailH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txtHome4"
@@ -121,7 +121,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.105">
+        app:layout_constraintVertical_bias="0.057">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -171,7 +171,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.291">
+        app:layout_constraintVertical_bias="0.136">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -212,7 +212,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/txtHome6"

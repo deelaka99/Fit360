@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,22 +24,24 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity1 extends AppCompatActivity {
     EditText etEmail, etPassword;
+    CheckBox cbTOS, cbUpdate;
     Button btnNext;
     TextView backToLogin;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(RegisterActivity1.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(RegisterActivity1.this, HomeActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class RegisterActivity1 extends AppCompatActivity {
         btnNext = findViewById(R.id.btnNextR1);
         progressBar = findViewById(R.id.progressBar);
         backToLogin = findViewById(R.id.backToLogin);
+        cbTOS = findViewById(R.id.cbTOS);
+        cbUpdate = findViewById(R.id.cbUpdate);
 
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,26 +83,27 @@ public class RegisterActivity1 extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    // If sign in success, display a message to the user.
-                                    Toast.makeText(RegisterActivity1.this, "Account created!.",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity1.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                //check checkboxes are checked or not
+                if (cbTOS.isChecked()){
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            progressBar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                // If sign in success, display a message to the user.
+                                Toast.makeText(RegisterActivity1.this, "Account created!.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(RegisterActivity1.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }
-                        });
-
-                Intent intent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
-                startActivity(intent);
-                finish();
+                        }
+                    });
+                }else{
+                    Toast.makeText(RegisterActivity1.this, "Please check the Term of Services", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

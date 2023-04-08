@@ -18,6 +18,7 @@ public class LogRegMenuActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Intent intent = new Intent(LogRegMenuActivity.this, HomeActivity.class);
@@ -37,6 +38,7 @@ public class LogRegMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LogRegMenuActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -46,6 +48,7 @@ public class LogRegMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LogRegMenuActivity.this, RegisterActivity1.class);
                 startActivity(intent);
+                finish();
             }
         });
 
