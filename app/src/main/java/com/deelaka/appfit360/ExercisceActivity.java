@@ -85,6 +85,8 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                     public void onClick(DialogInterface dialog, int which) {
                         stepCountVal = stepCountInput.getText().toString();
                         Toast.makeText(ExercisceActivity.this, "Your walking limit is "+stepCountVal+" steps.", Toast.LENGTH_SHORT).show();
+                        txtStepCount.setText(String.valueOf(stepCountVal + " Steps"));
+
                     }
                 });
 
@@ -119,6 +121,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                     public void onClick(DialogInterface dialog, int which) {
                         runCountVal = runCountInput.getText().toString();
                         Toast.makeText(ExercisceActivity.this, "Your running limit is "+runCountVal+"KM.", Toast.LENGTH_SHORT).show();
+                        txtRunKm.setText(String.valueOf(runCountVal + " Km"));
                     }
                 });
 
@@ -154,6 +157,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                     public void onClick(DialogInterface dialog, int which) {
                         cycleCountVal = cycleCountInput.getText().toString();
                         Toast.makeText(ExercisceActivity.this, "Your cycling limit is "+cycleCountVal+"KM.", Toast.LENGTH_SHORT).show();
+                        txtCycKm.setText(String.valueOf(cycleCountVal + " Km"));
                     }
                 });
 
