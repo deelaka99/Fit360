@@ -49,6 +49,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         runPB = findViewById(R.id.runProgressBar);
         cycPB = findViewById(R.id.cycProgressBar);
         Button btnViewMap = findViewById(R.id.btnViewMap);
+        Button btnEBack = findViewById(R.id.btnEBack);
 
         //setting default step, run, cycle limits
         txtStepCount.setText(stepCountVal + " Steps");
@@ -69,6 +70,12 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
 
         btnViewMap.setOnClickListener(v -> {
             Intent intent = new Intent(ExercisceActivity.this, MapActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnEBack.setOnClickListener(v -> {
+            Intent intent = new Intent(ExercisceActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });

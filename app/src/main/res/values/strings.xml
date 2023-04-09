@@ -61,10 +61,14 @@
     <string name="txtExercise3">Walking</string>
     <string name="txtExercise4">Running</string>
     <string name="txtExercise5">Cycling</string>
-    <string name="txtExercise6">800 Steps</string>
-    <string name="txtExercise7">5 Km</string>
-    <string name="txtExercise8">4 Km</string>
+    <string name="txtExercise6">Limit: 800 Steps</string>
+    <string name="txtExercise7">Limit: 5 Km</string>
+    <string name="txtExercise8">Limit: 4 Km</string>
     <string name="txtExercise9">View map</string>
+    <string name="txtExercise10">Start</string>
+    <string name="txtExercise11">Pause</string>
+    <string name="txtExercise12">Reset</string>
+    <string name="txtExercise13">Back</string>
     <string name="txtMap1">You ran 5Km</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="waterHome1">400/2000ml</string>
