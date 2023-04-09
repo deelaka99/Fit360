@@ -93,7 +93,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //update percentage
                 txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
                 //update progress
-                updateProgress((int) calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
+                updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
             });
 
             dialog.setNegativeButton("Cancel", (dialog12, which) -> dialog12.cancel());
@@ -121,7 +121,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //update percentage
                 txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
                 //update progress
-                updateProgress((int) calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
+                updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
             });
 
             dialog.setNegativeButton("Cancel", (dialog14, which) -> dialog14.cancel());
@@ -150,16 +150,12 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //update percentage
                 txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
                 //update progress
-                updateProgress((int) calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
+                updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
             });
 
             dialog.setNegativeButton("Cancel", (dialog16, which) -> dialog16.cancel());
 
             dialog.show();
-            //calling updateProgress functions
-            updateProgress((int) calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
-            updateProgress((int) calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
-            updateProgress((int) calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
         });
 
     }
@@ -182,6 +178,11 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
             txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
             txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
+
+            //calling updateProgress functions
+            updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
+            updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
+            updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
 
         }
     }
@@ -208,12 +209,13 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
     }
 
     // Method to update progress based on percentage value
-    private void updateProgress(int percentage, ProgressBar progressBar) {
-        progressBar.setProgress(percentage);
+    private void updateProgress(double percentage, ProgressBar progressBar) {
+        int progress = (int) Math.round(percentage);
+        progressBar.setProgress(progress);
     }
 
     // Method to calculate progress percentage
     private double calculateProgressPercentage(int val1, int val2) {
-        return Math.round((val1/val2)*100 * Math.pow(10, 1) / Math.pow(10, 1));
+        return Math.round(((double)val1/val2)*100 * Math.pow(10, 1)) / Math.pow(10, 1);
     }
 }
