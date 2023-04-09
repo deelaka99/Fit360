@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/txtAppName7"
+        android:id="@+id/txtUName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="344dp"
@@ -55,11 +55,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName7"
+        app:layout_constraintTop_toBottomOf="@+id/txtUName"
         app:layout_constraintVertical_bias="0.775" />
 
     <TextView
-        android:id="@+id/txtAppName12"
+        android:id="@+id/txtUSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="360dp"
@@ -73,11 +73,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toEndOf="@+id/txtAppName8"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName7"
+        app:layout_constraintTop_toBottomOf="@+id/txtUName"
         app:layout_constraintVertical_bias="0.772" />
 
     <TextView
-        android:id="@+id/txtAppName14"
+        android:id="@+id/txtUHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="280dp"
@@ -91,11 +91,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toEndOf="@+id/txtAppName10"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName13"
+        app:layout_constraintTop_toBottomOf="@+id/txtUBirthday"
         app:layout_constraintVertical_bias="0.655" />
 
     <TextView
-        android:id="@+id/txtAppName15"
+        android:id="@+id/txtUWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="120dp"
@@ -110,11 +110,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/txtAppName11"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName14"
+        app:layout_constraintTop_toBottomOf="@+id/txtUHeight"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/txtAppName13"
+        android:id="@+id/txtUBirthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toEndOf="@+id/txtAppName9"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName12"
+        app:layout_constraintTop_toBottomOf="@+id/txtUSex"
         app:layout_constraintVertical_bias="0.88" />
 
     <TextView

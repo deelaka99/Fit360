@@ -34,7 +34,7 @@
         tools:src="@drawable/image1" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txtRunKM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
@@ -59,11 +59,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/txtRunKM"
         app:layout_constraintVertical_bias="0.066" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/txtCycKM"
         android:layout_width="350dp"
         android:layout_height="57dp"
         android:text="@string/txtReg24"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/txtRunKM"
         app:layout_constraintVertical_bias="0.225" />
 
     <Button
@@ -87,6 +87,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/txtCycKM"
         app:layout_constraintVertical_bias="0.2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

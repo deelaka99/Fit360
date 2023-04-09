@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -29,9 +33,6 @@
             android:name=".ExercisceActivity"
             android:exported="false" />
         <activity
-            android:name=".MapsActivity"
-            android:exported="false" />
-        <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
@@ -40,10 +41,6 @@
         <activity
             android:name=".RegisterActivity3"
             android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
         <activity
             android:name=".RegisterActivity2"
             android:exported="false" />
@@ -63,8 +60,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:resource="@array/preloaded_fonts"
-            android:value="AIzaSyBx2N--ZQcVclcVgghgzHPjFb0zzJQUvRg" />
+            android:value="AIzaSyDmM0bPkR-5EL7_f4-RTfbgo6wG_hl8HcU" />
     </application>
 
 </manifest>
