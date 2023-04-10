@@ -7,38 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".ExercisceActivity">
 
-    <TextView
-        android:id="@+id/txtAppName17"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="@color/teal_700"
-        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/txtAppName18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alata"
-        android:text="@string/txtExercise1"
-        android:textAlignment="center"
-        android:textColor="@color/green"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName17"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/txtAppName17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/teal_700"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.10" />
+
+        <TextView
+            android:id="@+id/txtAppName18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:text="@string/txtExercise1"
+            android:textAlignment="center"
+            android:textColor="@color/green"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAppName17"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -50,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAppName18"
+        app:layout_constraintTop_toBottomOf="@+id/cl3"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -218,14 +230,14 @@
         android:id="@+id/constraintLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:background="#FF9800"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        app:layout_constraintVertical_bias="0.082">
+        app:layout_constraintVertical_bias="0.050000012">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout10"
@@ -348,12 +360,13 @@
                 app:layout_constraintTop_toBottomOf="@id/runProgressBar"
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/cl1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl1"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
@@ -391,14 +404,14 @@
         android:id="@+id/constraintLayout5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:background="@color/teal_200"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
-        app:layout_constraintVertical_bias="0.17">
+        app:layout_constraintVertical_bias="0.110000014">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
@@ -448,7 +461,6 @@
                 app:layout_constraintStart_toEndOf="@+id/btnCycEdiPla"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -522,12 +534,13 @@
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/cl2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cl2"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button

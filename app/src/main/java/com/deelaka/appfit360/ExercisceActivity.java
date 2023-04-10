@@ -52,9 +52,9 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         Button btnEBack = findViewById(R.id.btnEBack);
 
         //setting default step, run, cycle limits
-        txtStepCount.setText(stepCountVal + " Steps");
-        txtRunKm.setText(runCountVal + " Km");
-        txtCycKm.setText(cycleCountVal + " Km");
+        txtStepCount.setText("Limit: "+stepCountVal + " Steps");
+        txtRunKm.setText("Limit: "+runCountVal + " Km");
+        txtCycKm.setText("Limit: "+cycleCountVal + " Km");
 
         //screen on always
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -96,7 +96,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             dialog.setPositiveButton("Save", (dialog1, which) -> {
                 stepCountVal = stepCountInput.getText().toString();
                 Toast.makeText(ExercisceActivity.this, "Your walking limit is "+stepCountVal+" steps.", Toast.LENGTH_SHORT).show();
-                txtStepCount.setText(stepCountVal + " Steps");
+                txtStepCount.setText("Limit: "+stepCountVal + " Steps");
                 //update percentage
                 txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
                 //update progress
@@ -124,7 +124,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             dialog.setPositiveButton("Save", (dialog13, which) -> {
                 runCountVal = runCountInput.getText().toString();
                 Toast.makeText(ExercisceActivity.this, "Your running limit is "+runCountVal+"KM.", Toast.LENGTH_SHORT).show();
-                txtRunKm.setText(runCountVal + " Km");
+                txtRunKm.setText("Limit: "+runCountVal + " Km");
                 //update percentage
                 txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
                 //update progress
@@ -153,7 +153,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             dialog.setPositiveButton("Save", (dialog15, which) -> {
                 cycleCountVal = cycleCountInput.getText().toString();
                 Toast.makeText(ExercisceActivity.this, "Your cycling limit is "+cycleCountVal+"KM.", Toast.LENGTH_SHORT).show();
-                txtCycKm.setText(cycleCountVal + " Km");
+                txtCycKm.setText("Limit: "+cycleCountVal + " Km");
                 //update percentage
                 txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
                 //update progress
