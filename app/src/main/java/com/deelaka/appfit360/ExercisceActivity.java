@@ -24,8 +24,13 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
     TextView txtStepCount, txtRunKm, txtCycKm, txtStepCountDisplay, txtRunKmDisplay, txtCycKmDisplay, txtSPPercentage,txtRPPercentage,txtCPPercentage;
     private ProgressBar stepPB, runPB, cycPB;
     double runKm, cycKm;
-    int stepCount = 0;
+    private int stepCount = 0;
     int previousSensorValue = -1;
+    int selectedButton;
+    //setting flag values to start buttons on every exercises
+    private static final int WALKING = 1;
+    private static final int RUNNING = 2;
+    private static final int CYCLING = 3;
     private String stepCountVal = "10000"; //For step count limit
     private String runCountVal = "10"; //For run kilometer count limit
     private String cycleCountVal = "10"; //For cycle kilometer count limit
@@ -78,10 +83,23 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER )!=null) {
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            //updating steps and kilometer values
+            txtStepCountDisplay.setText("0 steps");
+            txtRunKmDisplay.setText("0Km");
+            txtCycKmDisplay.setText("0Km");
+
+            //updating progress percentage
+            txtSPPercentage.setText("0%");
+            txtRPPercentage.setText("0%");
+            txtCPPercentage.setText("0%");
+
+            //calling updateProgress functions
+            updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
+            updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
+            updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
         }else{
             txtStepCount.setText("SC not present!");
         }
-
 
         btnViewMap.setOnClickListener(v -> {
             Intent intent = new Intent(ExercisceActivity.this, MapActivity.class);
@@ -190,7 +208,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             updateProgress(0,stepPB);
         });
 
-        //For the button reset walking
+        //For the button reset running
         btnResetRunning.setOnClickListener(v -> {
             runKm = 0; //Set km count to 0
             txtRunKmDisplay.setText(runKm + "Km"); //Update the km count display
@@ -210,6 +228,8 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
 
         //For the button start walking steps
         btnStartWalking.setOnClickListener(v -> {
+            //set the button flag
+            selectedButton = WALKING;
             ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
             ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
             ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
@@ -249,12 +269,15 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetRunning.setTextColor(Color.WHITE);
                 isWalkStart = true;
+                previousSensorValue = -1;
                 onPause();//Pausing the sensor event listener
             }
         });
 
         //For the button start running
         btnStartRunning.setOnClickListener(v -> {
+            //set the button flag
+            selectedButton = RUNNING;
             ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
             ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
             ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
@@ -294,6 +317,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //Change textcolours
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetSteps.setTextColor(Color.WHITE);
+                previousSensorValue = -1;
                 isRunStart = true;
                 onPause();//Pausing the sensor event listener
             }
@@ -301,6 +325,8 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
 
         //For the button start cycling
         btnStartCycling.setOnClickListener(v -> {
+            //set the button flag
+            selectedButton = CYCLING;
             ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
             ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
             ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
@@ -340,6 +366,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //Change textcolours
                 btnResetRunning.setTextColor(Color.WHITE);
                 btnResetSteps.setTextColor(Color.WHITE);
+                previousSensorValue = -1;
                 isCycStart = true;
                 onPause();//Pausing the sensor event listener
             }
@@ -356,25 +383,38 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             }
             int currentSensorValue = (int)sensorEvent.values[0];
             stepCount = currentSensorValue - previousSensorValue;
+            switch (selectedButton){
+                case WALKING:
+                    //updating steps and kilometer values
+                    txtStepCountDisplay.setText(stepCount + " steps");
+                    //updating progress percentage
+                    txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
+                    //calling updateProgress functions
+                    updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
+                    break;
 
-            //converting steps to kilometers
-            runKm = (stepCount*0.7)/1000;
-            cycKm = (stepCount*0.7)/1000;
+                case RUNNING:
+                    //converting steps to kilometers
+                    runKm = (stepCount*0.7)/1000;
+                    //updating steps and kilometer values
+                    txtRunKmDisplay.setText(Math.round(runKm * Math.pow(10, 2)) / Math.pow(10, 2)+"Km");
+                    //updating progress percentage
+                    txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
+                    //calling updateProgress functions
+                    updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
+                    break;
 
-            //updating steps and kilometer values
-            txtStepCountDisplay.setText(stepCount + " steps");
-            txtRunKmDisplay.setText(Math.round(runKm * Math.pow(10, 2)) / Math.pow(10, 2)+"Km");
-            txtCycKmDisplay.setText(Math.round(cycKm * Math.pow(10, 2)) / Math.pow(10, 2)+"Km");
-
-            //updating progress percentage
-            txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
-            txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
-            txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
-
-            //calling updateProgress functions
-            updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
-            updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
-            updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
+                case CYCLING:
+                    //converting steps to kilometers
+                    cycKm = (stepCount*0.7)/1000;
+                    //updating steps and kilometer values
+                    txtCycKmDisplay.setText(Math.round(cycKm * Math.pow(10, 2)) / Math.pow(10, 2)+"Km");
+                    //updating progress percentage
+                    txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
+                    //calling updateProgress functions
+                    updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
+                    break;
+            }
         }
     }
 
