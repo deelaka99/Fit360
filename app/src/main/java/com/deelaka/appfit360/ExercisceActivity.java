@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,11 +25,16 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
     private ProgressBar stepPB, runPB, cycPB;
     double runKm, cycKm;
     int stepCount = 0;
+    int previousSensorValue = -1;
     private String stepCountVal = "10000"; //For step count limit
     private String runCountVal = "10"; //For run kilometer count limit
     private String cycleCountVal = "10"; //For cycle kilometer count limit
     private SensorManager sensorManager;
     private Sensor mStepCounter;
+    private Boolean isWalkStart = true;
+    private Boolean isRunStart = true;
+    private Boolean isCycStart = true;
+    private Button btnStartWalking, btnStartRunning, btnStartCycling, btnResetSteps, btnResetRunning, btnResetCycling;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -50,6 +57,14 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         cycPB = findViewById(R.id.cycProgressBar);
         Button btnViewMap = findViewById(R.id.btnViewMap);
         Button btnEBack = findViewById(R.id.btnEBack);
+        //Exercise starting buttons
+        btnStartWalking = findViewById(R.id.btnWalkStartPause2);
+        btnStartRunning = findViewById(R.id.btnRunStartPause2);
+        btnStartCycling = findViewById(R.id.btnCycStartPause);
+        //Exercise reset buttons
+        btnResetSteps = findViewById(R.id.btnWalkReset);
+        btnResetRunning = findViewById(R.id.btnRunReset);
+        btnResetCycling = findViewById(R.id.btnCycReset);
 
         //setting default step, run, cycle limits
         txtStepCount.setText("Limit: "+stepCountVal + " Steps");
@@ -165,13 +180,183 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             dialog.show();
         });
 
+        //For the button reset steps
+        btnResetSteps.setOnClickListener(v -> {
+            previousSensorValue = -1;
+            stepCount = 0; //Set step count to 0
+            txtStepCountDisplay.setText(stepCount + " steps"); //Update the step count display
+            //Reset progress bar and percentage
+            txtSPPercentage.setText("0%");
+            updateProgress(0,stepPB);
+        });
+
+        //For the button reset walking
+        btnResetRunning.setOnClickListener(v -> {
+            runKm = 0; //Set km count to 0
+            txtRunKmDisplay.setText(runKm + "Km"); //Update the km count display
+            //Reset progress bar and percentage
+            txtRPPercentage.setText("0%");
+            updateProgress(0,runPB);
+        });
+
+        //For the button reset cycling
+        btnResetCycling.setOnClickListener(v -> {
+            cycKm = 0; //Set km count to 0
+            txtCycKmDisplay.setText(cycKm + "Km"); //Update the km count display
+            //Reset progress bar and percentage
+            txtCPPercentage.setText("0%");
+            updateProgress(0,cycPB);
+        });
+
+        //For the button start walking steps
+        btnStartWalking.setOnClickListener(v -> {
+            ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
+            ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
+            ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
+            ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
+            if (isWalkStart){
+                btnStartWalking.setBackgroundTintList(colorStateListYellow);
+                btnStartWalking.setText("PAUSE");
+                //Inactivate other start buttons
+                btnStartRunning.setEnabled(false);
+                btnStartCycling.setEnabled(false);
+                btnResetRunning.setEnabled(false);
+                btnResetCycling.setEnabled(false);
+                //Change button colours to grey
+                btnStartRunning.setBackgroundTintList(colorStateListGray);
+                btnResetRunning.setBackgroundTintList(colorStateListGray);
+                btnStartCycling.setBackgroundTintList(colorStateListGray);
+                btnResetCycling.setBackgroundTintList(colorStateListGray);
+                //Change textcolor to black
+                btnResetRunning.setTextColor(Color.BLACK);
+                btnResetCycling.setTextColor(Color.BLACK);
+                isWalkStart = false;
+                onResume();//Resuming the sensor event listener
+            }else{
+                btnStartWalking.setBackgroundTintList(colorStateListGreen);
+                btnStartWalking.setText("START");
+                //Activate other start buttons
+                btnStartRunning.setEnabled(true);
+                btnStartCycling.setEnabled(true);
+                btnResetRunning.setEnabled(true);
+                btnResetCycling.setEnabled(true);
+                //Change button colours
+                btnStartRunning.setBackgroundTintList(colorStateListGreen);
+                btnStartCycling.setBackgroundTintList(colorStateListGreen);
+                btnResetRunning.setBackgroundTintList(colorStateListRed);
+                btnResetCycling.setBackgroundTintList(colorStateListRed);
+                //Change textcolours
+                btnResetCycling.setTextColor(Color.WHITE);
+                btnResetRunning.setTextColor(Color.WHITE);
+                isWalkStart = true;
+                onPause();//Pausing the sensor event listener
+            }
+        });
+
+        //For the button start running
+        btnStartRunning.setOnClickListener(v -> {
+            ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
+            ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
+            ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
+            ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
+            if (isRunStart){
+                btnStartRunning.setBackgroundTintList(colorStateListYellow);
+                btnStartRunning.setText("PAUSE");
+                //Inactivate other start buttons
+                btnStartWalking.setEnabled(false);
+                btnStartCycling.setEnabled(false);
+                btnResetSteps.setEnabled(false);
+                btnResetCycling.setEnabled(false);
+                //Change button colours to grey
+                btnStartWalking.setBackgroundTintList(colorStateListGray);
+                btnResetSteps.setBackgroundTintList(colorStateListGray);
+                btnStartCycling.setBackgroundTintList(colorStateListGray);
+                btnResetCycling.setBackgroundTintList(colorStateListGray);
+                //Change textcolor to black
+                btnResetSteps.setTextColor(Color.BLACK);
+                btnResetCycling.setTextColor(Color.BLACK);
+                isRunStart = false;
+                onResume();//Resuming the sensor event listener
+            }else{
+                btnStartRunning.setBackgroundTintList(colorStateListGreen);
+                btnStartRunning.setText("START");
+                //Activate other start buttons
+                btnStartWalking.setEnabled(true);
+                btnStartCycling.setEnabled(true);
+                btnResetSteps.setEnabled(true);
+                btnResetCycling.setEnabled(true);
+                //Change button colours
+                btnStartWalking.setBackgroundTintList(colorStateListGreen);
+                btnStartRunning.setBackgroundTintList(colorStateListGreen);
+                btnStartCycling.setBackgroundTintList(colorStateListGreen);
+                btnResetSteps.setBackgroundTintList(colorStateListRed);
+                btnResetCycling.setBackgroundTintList(colorStateListRed);
+                //Change textcolours
+                btnResetCycling.setTextColor(Color.WHITE);
+                btnResetSteps.setTextColor(Color.WHITE);
+                isRunStart = true;
+                onPause();//Pausing the sensor event listener
+            }
+        });
+
+        //For the button start cycling
+        btnStartCycling.setOnClickListener(v -> {
+            ColorStateList colorStateListRed = ColorStateList.valueOf(Color.RED);
+            ColorStateList colorStateListGray = ColorStateList.valueOf(Color.LTGRAY);
+            ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
+            ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
+            if (isCycStart){
+                btnStartCycling.setBackgroundTintList(colorStateListYellow);
+                btnStartCycling.setText("PAUSE");
+                //Inactivate other start buttons
+                btnStartWalking.setEnabled(false);
+                btnStartRunning.setEnabled(false);
+                btnResetSteps.setEnabled(false);
+                btnResetRunning.setEnabled(false);
+                //Change button colours to grey
+                btnStartWalking.setBackgroundTintList(colorStateListGray);
+                btnResetSteps.setBackgroundTintList(colorStateListGray);
+                btnStartRunning.setBackgroundTintList(colorStateListGray);
+                btnResetRunning.setBackgroundTintList(colorStateListGray);
+                //Change textcolor to black
+                btnResetSteps.setTextColor(Color.BLACK);
+                btnResetRunning.setTextColor(Color.BLACK);
+                isCycStart = false;
+                onResume();//Resuming the sensor event listener
+            }else{
+                btnStartCycling.setBackgroundTintList(colorStateListGreen);
+                btnStartCycling.setText("START");
+                //Activate other start buttons
+                btnStartWalking.setEnabled(true);
+                btnStartRunning.setEnabled(true);
+                btnResetSteps.setEnabled(true);
+                btnResetRunning.setEnabled(true);
+                //Change button colours
+                btnStartWalking.setBackgroundTintList(colorStateListGreen);
+                btnStartRunning.setBackgroundTintList(colorStateListGreen);
+                btnStartCycling.setBackgroundTintList(colorStateListGreen);
+                btnResetSteps.setBackgroundTintList(colorStateListRed);
+                btnResetRunning.setBackgroundTintList(colorStateListRed);
+                //Change textcolours
+                btnResetRunning.setTextColor(Color.WHITE);
+                btnResetSteps.setTextColor(Color.WHITE);
+                isCycStart = true;
+                onPause();//Pausing the sensor event listener
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if(sensorEvent.sensor == mStepCounter){
-            stepCount = (int)sensorEvent.values[0];
+            if(previousSensorValue < 0){
+                //getting initial step count value
+                previousSensorValue = (int)sensorEvent.values[0];
+            }
+            int currentSensorValue = (int)sensorEvent.values[0];
+            stepCount = currentSensorValue - previousSensorValue;
+
             //converting steps to kilometers
             runKm = (stepCount*0.7)/1000;
             cycKm = (stepCount*0.7)/1000;
@@ -190,7 +375,6 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
             updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
             updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
-
         }
     }
 
