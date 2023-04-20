@@ -69,6 +69,9 @@
     <string name="txtExercise11">Pause</string>
     <string name="txtExercise12">Reset</string>
     <string name="txtExercise13">Back</string>
+    <string name="txtExercise14">Done</string>
+    <string name="txtExercise15">Updating profile</string>
+    <string name="txtExercise16">Update</string>
     <string name="txtMap1">You ran 5Km</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="waterHome1">400/2000ml</string>

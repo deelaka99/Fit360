@@ -1,13 +1,11 @@
 package com.deelaka.appfit360;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     TextView uName,uSex,uBirthday, uHeight, uWeight;
     String fName,lName, sex, birthday, height, weight;
-    Button editProfileBtn;
+    Button editProfileBtn, btnEback, btnELogout;
     FirebaseUser user;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +36,8 @@ public class EditProfileActivity extends AppCompatActivity {
         uHeight = findViewById(R.id.txtUHeight);
         uWeight = findViewById(R.id.txtUWeight);
         editProfileBtn = findViewById(R.id.btnEEditProfile);
+        btnEback = findViewById(R.id.btnEBack);
+        btnELogout = findViewById(R.id.btnELogout);
 
         // Get the current authenticated user
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -59,27 +59,52 @@ public class EditProfileActivity extends AppCompatActivity {
                         lName = dataSnapshot.child("LName").getValue(String.class);
                         birthday = dataSnapshot.child("Birthday").getValue(String.class);
                         sex = dataSnapshot.child("Sex").getValue(String.class);
-                        height = dataSnapshot.child("Height").getValue(String.class);
-                        weight = dataSnapshot.child("Weight").getValue(String.class);
-
-                        //Set values to Textview objects
-                        uName.setText(fName + " " + lName);
-                        uSex.setText(sex);
-                        uBirthday.setText(birthday);
-                        uHeight.setText(height+"cm");
-                        uWeight.setText(weight + "Kg");
+                        Long heightLong = dataSnapshot.child("Height").getValue(Long.class);
+                        if (heightLong != null) {
+                            height = heightLong.toString();
+                        }
+                        Long weightLong = dataSnapshot.child("Weight").getValue(Long.class);
+                        if (weightLong != null) {
+                            weight = weightLong.toString();
+                        }
                     }
+                    //Set values to Textview objects
+                    uName.setText(fName + " " + lName);
+                    uSex.setText(sex);
+                    uBirthday.setText(birthday);
+                    uHeight.setText(height+"cm");
+                    uWeight.setText(weight + "Kg");
+
+                    editProfileBtn.setOnClickListener(v -> {
+                        Intent intent = new Intent(EditProfileActivity.this, UpdateProfileActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 }
-                
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Handle error
-                    Toast.makeText(EditProfileActivity.this, "Can't retreive data from the database!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "Can't retrieve data from the database!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
-        editProfileBtn.setOnClickListener(v -> Toast.makeText(EditProfileActivity.this, "Username is "+fName+" "+lName, Toast.LENGTH_SHORT).show());
+        btnEback.setOnClickListener(v -> {
+            Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnELogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
     }
 }

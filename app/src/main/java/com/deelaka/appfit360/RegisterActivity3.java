@@ -20,10 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,18 +34,14 @@ public class RegisterActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
 
-        final EditText etFName = findViewById(R.id.etFName);
-        final EditText etLName = findViewById(R.id.etLName);
-        //Get the date from date picker
-        final DatePicker etBirthday = findViewById(R.id.etBirthday);
-        int day = etBirthday.getDayOfMonth();
-        int month = etBirthday.getMonth() + 1;
-        int year = etBirthday.getYear();
-        final EditText etHeight = findViewById(R.id.etHeight);
-        final EditText etWeight = findViewById(R.id.etWeight);
-        rgSex = findViewById(R.id.rgSex);
-        RadioButton rbMale = findViewById(R.id.rbMale);
-        RadioButton rbFemale = findViewById(R.id.rbFemale);
+        final EditText etFName = findViewById(R.id.etUPFName);
+        final EditText etLName = findViewById(R.id.etUPLName);
+        final DatePicker etBirthday = findViewById(R.id.etUPBirthday);
+        final EditText etHeight = findViewById(R.id.etUPHeight);
+        final EditText etWeight = findViewById(R.id.etUPWeight);
+        rgSex = findViewById(R.id.rgUPSex);
+        RadioButton rbMale = findViewById(R.id.rbUPMale);
+        RadioButton rbFemale = findViewById(R.id.rbUPFemale);
         btnCAAccount = findViewById(R.id.btnCAccount);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,6 +62,10 @@ public class RegisterActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (user != null){
+                    // Get the date from the DatePicker
+                    int day = etBirthday.getDayOfMonth();
+                    int month = etBirthday.getMonth() + 1;
+                    int year = etBirthday.getYear();
                     // Convert the date to the desired format
                     String dateString = String.format("%02d/%02d/%d", day, month, year);
                     // Write data to Realtime Database
