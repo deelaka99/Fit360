@@ -75,36 +75,51 @@ public class RegisterActivity1 extends AppCompatActivity {
                 password = String.valueOf(etPassword.getText());
 
                 //check email and password fields are empty or not
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(RegisterActivity1.this, "Enter email!", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                    Toast.makeText(RegisterActivity1.this, "Enter email & password!!!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity1.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                //check checkboxes are checked or not
-                if (cbTOS.isChecked()){
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressBar.setVisibility(View.GONE);
-                            if (task.isSuccessful()) {
-                                // If sign in success, display a message to the user.
-                                Toast.makeText(RegisterActivity1.this, "Account created!.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(RegisterActivity1.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
                 }else{
-                    Toast.makeText(RegisterActivity1.this, "Please check the Term of Services", Toast.LENGTH_SHORT).show();
+                    //Check email is in correct format
+                    if (isValidEmail(email)) {
+                        if (password.length()>=6){
+                            //check checkboxes are checked or not
+                            if (cbTOS.isChecked()){
+                                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+                                            // If sign in success, display a message to the user.
+                                            Toast.makeText(RegisterActivity1.this, "Account created!.", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Toast.makeText(RegisterActivity1.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }else{
+                                Toast.makeText(RegisterActivity1.this, "Please check the Term of Services", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(RegisterActivity1.this, "Password should be consist of least 6 characters", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(RegisterActivity1.this, "Please enter the email in correct format!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
     }
+
+    public static boolean isValidEmail(CharSequence email) {
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        }
+    }
+
 }

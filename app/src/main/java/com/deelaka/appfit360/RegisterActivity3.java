@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,6 +20,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +40,11 @@ public class RegisterActivity3 extends AppCompatActivity {
 
         final EditText etFName = findViewById(R.id.etFName);
         final EditText etLName = findViewById(R.id.etLName);
-        final EditText etBirthday = findViewById(R.id.etBirthday);
+        //Get the date from date picker
+        final DatePicker etBirthday = findViewById(R.id.etBirthday);
+        int day = etBirthday.getDayOfMonth();
+        int month = etBirthday.getMonth() + 1;
+        int year = etBirthday.getYear();
         final EditText etHeight = findViewById(R.id.etHeight);
         final EditText etWeight = findViewById(R.id.etWeight);
         rgSex = findViewById(R.id.rgSex);
@@ -61,17 +70,19 @@ public class RegisterActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (user != null){
+                    // Convert the date to the desired format
+                    String dateString = String.format("%02d/%02d/%d", day, month, year);
+                    // Write data to Realtime Database
                     String uid = user.getUid();//Get the UID of the current user
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     DatabaseReference userRef = databaseReference.child("users").child(uid);
 
-                    // Write data to Realtime Database
                     Map<String, Object> userData = new HashMap<>();
                     userData.put("FName", etFName.getText().toString());
                     userData.put("LName", etLName.getText().toString());
-                    userData.put("Birthday", etBirthday.getText().toString());
-                    userData.put("Height", etHeight.getText().toString());
-                    userData.put("Weight", etWeight.getText().toString());
+                    userData.put("Birthday",dateString);
+                    userData.put("Height", Double.parseDouble(etHeight.getText().toString()));
+                    userData.put("Weight", Double.parseDouble(etWeight.getText().toString()));
                     userData.put("Sex", radioBtnValue);
                     userRef.setValue(userData)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

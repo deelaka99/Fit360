@@ -1,5 +1,6 @@
 package com.deelaka.appfit360;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +22,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ExercisceActivity extends AppCompatActivity implements SensorEventListener {
     TextView txtStepCount, txtRunKm, txtCycKm, txtStepCountDisplay, txtRunKmDisplay, txtCycKmDisplay, txtSPPercentage,txtRPPercentage,txtCPPercentage;
     private ProgressBar stepPB, runPB, cycPB;
-    double runKm, cycKm;
+    private double runKm, cycKm, burntCalories, weight;
+    private String userName;//to store user name getting from the firebase
+    double fullBurntCalories = 0;
     private int stepCount = 0;
-    int previousSensorValue = -1;
+    int previousSensorValue;
     int selectedButton;
     //setting flag values to start buttons on every exercises
     private static final int WALKING = 1;
@@ -40,6 +53,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
     private Boolean isRunStart = true;
     private Boolean isCycStart = true;
     private Button btnStartWalking, btnStartRunning, btnStartCycling, btnResetSteps, btnResetRunning, btnResetCycling;
+    FirebaseUser user;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -70,6 +84,36 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         btnResetSteps = findViewById(R.id.btnWalkReset);
         btnResetRunning = findViewById(R.id.btnRunReset);
         btnResetCycling = findViewById(R.id.btnCycReset);
+
+        // Get the current authenticated user
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid(); // Get the UID of the current user
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference userRef = databaseReference.child("users").child(uid);
+
+            // Read data from Realtime Database
+            userRef.addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Data exists for the current user
+                        // Access the data using dataSnapshot.getValue() or iterate through the children nodes
+                        userName = dataSnapshot.child("FName").getValue(String.class);
+                        Log.d("Weight",Double.toString(weight));
+                        weight = dataSnapshot.child("Weight").getValue(Double.class);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle error
+                    Toast.makeText(ExercisceActivity.this, "Can't retreive data from the database!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         //setting default step, run, cycle limits
         txtStepCount.setText("Limit: "+stepCountVal + " Steps");
@@ -102,7 +146,19 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         }
 
         btnViewMap.setOnClickListener(v -> {
+            // initialize the starting and destination points
+            double startingLat = 0;
+            double startingLng = 0;
+            double destinationLat = 0;
+            double destinationLng = 0;
+            // create LatLng objects for the starting and destination points
+            LatLng startingPoint = new LatLng(startingLat, startingLng);
+            LatLng destinationPoint = new LatLng(destinationLat, destinationLng);
             Intent intent = new Intent(ExercisceActivity.this, MapActivity.class);
+            intent.putExtra("startingPoint", startingPoint);
+            intent.putExtra("destinationPoint", destinationPoint);
+            Log.d("FirstActivity", "Starting point: " + startingPoint.toString());
+            Log.d("FirstActivity", "Destination point: " + destinationPoint.toString());
             startActivity(intent);
             finish();
         });
@@ -115,7 +171,6 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
 
         //For the btnWalEdiPla button
         Button btnWalEdiPla = findViewById(R.id.btnWalEdiPla);
-
         btnWalEdiPla.setOnClickListener(v -> {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ExercisceActivity.this);
             dialog.setTitle("Alert");
@@ -235,8 +290,9 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
             ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
             if (isWalkStart){
+                previousSensorValue = -1;
                 btnStartWalking.setBackgroundTintList(colorStateListYellow);
-                btnStartWalking.setText("PAUSE");
+                btnStartWalking.setText("STOP");
                 //Inactivate other start buttons
                 btnStartRunning.setEnabled(false);
                 btnStartCycling.setEnabled(false);
@@ -253,6 +309,21 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 isWalkStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
+                //calculate burnt callories for walking
+                burntCalories = calculateBurntCalories(1,weight);
+                //showing an alertDialog box for the burnt callories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //Set the title of the dialogBox
+                builder.setTitle("Congratulations!");
+                //Set the message to display in the dialog
+                builder.setMessage(userName+", You have burnt "+burntCalories/1000+" Kilo calories...\nKeep it up!");
+                //set the positive button
+                builder.setPositiveButton("Ok", (dialog, which) -> fullBurntCalories += burntCalories);
+                // Create the AlertDialog object and show it
+                AlertDialog dialog = builder.create();
+                if (previousSensorValue!=-1) {
+                    dialog.show();
+                }
                 btnStartWalking.setBackgroundTintList(colorStateListGreen);
                 btnStartWalking.setText("START");
                 //Activate other start buttons
@@ -269,7 +340,6 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetRunning.setTextColor(Color.WHITE);
                 isWalkStart = true;
-                previousSensorValue = -1;
                 onPause();//Pausing the sensor event listener
             }
         });
@@ -283,8 +353,9 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
             ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
             if (isRunStart){
+                previousSensorValue = -1;
                 btnStartRunning.setBackgroundTintList(colorStateListYellow);
-                btnStartRunning.setText("PAUSE");
+                btnStartRunning.setText("STOP");
                 //Inactivate other start buttons
                 btnStartWalking.setEnabled(false);
                 btnStartCycling.setEnabled(false);
@@ -301,6 +372,21 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 isRunStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
+                //calculate burnt callories for walking
+                burntCalories = calculateBurntCalories(2,weight);
+                //showing an alertDialog box for the burnt callories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //Set the title of the dialogBox
+                builder.setTitle("Congratulations!");
+                //Set the message to display in the dialog
+                builder.setMessage(userName+", You have burnt "+burntCalories/1000+" Kilo calories...\nKeep it up!");
+                //set the positive button
+                builder.setPositiveButton("Ok", (dialog, which) -> fullBurntCalories += burntCalories);
+                // Create the AlertDialog object and show it
+                AlertDialog dialog = builder.create();
+                if (previousSensorValue!=-1) {
+                    dialog.show();
+                }
                 btnStartRunning.setBackgroundTintList(colorStateListGreen);
                 btnStartRunning.setText("START");
                 //Activate other start buttons
@@ -317,7 +403,6 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 //Change textcolours
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetSteps.setTextColor(Color.WHITE);
-                previousSensorValue = -1;
                 isRunStart = true;
                 onPause();//Pausing the sensor event listener
             }
@@ -333,7 +418,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             ColorStateList colorStateListYellow = ColorStateList.valueOf(Color.YELLOW);
             if (isCycStart){
                 btnStartCycling.setBackgroundTintList(colorStateListYellow);
-                btnStartCycling.setText("PAUSE");
+                btnStartCycling.setText("STOP");
                 //Inactivate other start buttons
                 btnStartWalking.setEnabled(false);
                 btnStartRunning.setEnabled(false);
@@ -350,6 +435,21 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 isCycStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
+                //calculate burnt callories for walking
+                burntCalories = calculateBurntCalories(3,weight);
+                //showing an alertDialog box for the burnt callories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //Set the title of the dialogBox
+                builder.setTitle("Congratulations!");
+                //Set the message to display in the dialog
+                builder.setMessage(userName+", You have burnt "+burntCalories/1000+" Kilo calories...\nKeep it up!");
+                //set the positive button
+                builder.setPositiveButton("Ok", (dialog, which) -> fullBurntCalories += burntCalories);
+                // Create the AlertDialog object and show it
+                AlertDialog dialog = builder.create();
+                if (previousSensorValue!=-1) {
+                    dialog.show();
+                }
                 btnStartCycling.setBackgroundTintList(colorStateListGreen);
                 btnStartCycling.setText("START");
                 //Activate other start buttons
@@ -448,5 +548,24 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
     // Method to calculate progress percentage
     private double calculateProgressPercentage(int val1, int val2) {
         return Math.round(((double)val1/val2)*100 * Math.pow(10, 1)) / Math.pow(10, 1);
+    }
+
+    //Calculate burnt calories
+    private double calculateBurntCalories(int activityNo, double weight){
+        double burntCalories=0;
+        switch (activityNo){
+            case 1:
+                burntCalories = stepCount*3.5*3.5*weight;//calories burnt = stepCount * MET *OxygenUptake per kg per minute*weight in kg
+                break;
+
+            case 2:
+                burntCalories = stepCount*10*3.5*weight;//calories burnt = stepCount * MET *OxygenUptake per kg per minute*weight in kg
+                break;
+
+            case 3:
+                burntCalories = stepCount*4*3.5*weight;//calories burnt = stepCount * MET *OxygenUptake per kg per minute*weight in kg
+                break;
+        }
+        return burntCalories;
     }
 }
