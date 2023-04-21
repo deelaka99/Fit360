@@ -88,30 +88,48 @@ public class RegisterActivity3 extends AppCompatActivity {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference userRef = databaseReference.child("users").child(uid);
 
-                Map<String, Object> userData = new HashMap<>();
-                userData.put("FName", etFName.getText().toString());
-                userData.put("LName", etLName.getText().toString());
-                userData.put("Birthday",dateString);
-                userData.put("Height", Double.parseDouble(etHeight.getText().toString()));
-                userData.put("Weight", Double.parseDouble(etWeight.getText().toString()));
-                userData.put("Sex", radioBtnValue);
-                userRef.setValue(userData)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(RegisterActivity3.this, "Data Saved!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity3.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
+                //Check EditText objects are null or not
+                if (etFName.getText().toString().isEmpty()){
+                    Toast.makeText(this, "Enter Your First name!!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    if (etLName.getText().toString().isEmpty()){
+                        Toast.makeText(this, "Enter Your Last name!!!", Toast.LENGTH_SHORT).show();
+                    }else {
+                        if (etHeight.getText().toString().isEmpty()){
+                            Toast.makeText(this, "Enter Your Height!!!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            if (etWeight.getText().toString().isEmpty()){
+                                Toast.makeText(this, "Enter Your Weight!!!", Toast.LENGTH_SHORT).show();
+                            }else {
+                                //Adding data to the hash map
+                                Map<String, Object> userData = new HashMap<>();
+                                userData.put("FName", etFName.getText().toString());
+                                userData.put("LName", etLName.getText().toString());
+                                userData.put("Birthday",dateString);
+                                userData.put("Height", Double.parseDouble(etHeight.getText().toString()));
+                                userData.put("Weight", Double.parseDouble(etWeight.getText().toString()));
+                                userData.put("Sex", radioBtnValue);
+                                userRef.setValue(userData)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(RegisterActivity3.this, "Data Saved!", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(RegisterActivity3.this, HomeActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Handle error
+                                                Toast.makeText(RegisterActivity3.this, "Data not saved " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Handle error
-                                Toast.makeText(RegisterActivity3.this, "Data not saved " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        }
+                    }
+                }
             }
         });
     }
