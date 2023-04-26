@@ -109,14 +109,14 @@
         android:textAlignment="center"
         android:textColor="@color/green"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        app:layout_constraintBottom_toBottomOf="@id/pbWater"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.24000001" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/pbWater"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/pbWater"
         app:layout_constraintVertical_bias="0.331" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

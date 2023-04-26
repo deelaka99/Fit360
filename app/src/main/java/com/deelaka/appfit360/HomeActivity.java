@@ -70,7 +70,6 @@ public class  HomeActivity extends AppCompatActivity {
         btnEx2.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, WaterTrackerActivity.class);
             startActivity(intent);
-            finish();
         });
 
         //For Start logging your food's Go button
@@ -78,7 +77,6 @@ public class  HomeActivity extends AppCompatActivity {
         btnEx3.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, FoodTrackerActivity.class);
             startActivity(intent);
-            finish();
         });
     }
 }

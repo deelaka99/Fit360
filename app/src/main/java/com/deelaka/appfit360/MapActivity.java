@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.Manifest;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -30,6 +34,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     SupportMapFragment mapFragment;
     FusedLocationProviderClient client;
+    Button btnMBack, btnMHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
         client = LocationServices.getFusedLocationProviderClient(this);
+        btnMBack = findViewById(R.id.btnMBack);
+        btnMHome = findViewById(R.id.btnMHome);
 
         Dexter.withContext(getApplicationContext()).withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -57,6 +64,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
+
+        btnMBack.setOnClickListener(v -> {
+            // Back to the exercise activity
+            Intent intent = new Intent(MapActivity.this, ExercisceActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnMHome.setOnClickListener(v -> {
+            // Going to the home activity
+            Intent intent = new Intent(MapActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override
@@ -79,16 +100,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                mapFragment.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(@NonNull GoogleMap googleMap) {
-                        LatLng latlng = new LatLng(location.getLatitude(),location.getLongitude());
-                        MarkerOptions markerOptions=new MarkerOptions().position(latlng).title("You are here...!");
+                if (location!=null){
+                    mapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(@NonNull GoogleMap googleMap) {
+                            LatLng latlng = new LatLng(location.getLatitude(),location.getLongitude());
+                            MarkerOptions markerOptions=new MarkerOptions().position(latlng).title("You are here...!");
 
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,15));
-                    }
-                });
+                            googleMap.addMarker(markerOptions);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng,15));
+                        }
+                    });
+                }
             }
         });
     }

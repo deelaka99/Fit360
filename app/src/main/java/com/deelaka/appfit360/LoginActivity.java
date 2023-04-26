@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailL);
         etPassword = findViewById(R.id.etPasswordL);
         btnLogin = findViewById(R.id.btnLoginL);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.pbWater);
         backToRegister = findViewById(R.id.backToRegister);
 
         backToRegister.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 //Getting email and password to variables
                 email = String.valueOf(etEmail.getText());
@@ -75,6 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
+                }else{
+                    btnLogin.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
 
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -91,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
                                     // If sign in fails, display a message to the user.
-
+                                    btnLogin.setVisibility(View.VISIBLE);
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
 

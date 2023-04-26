@@ -37,4 +37,9 @@ public class FoodTrackerActivity extends AppCompatActivity {
 
         new TabLayoutMediator(tabLayout,viewPager2,((tab, position) -> tab.setText(titles[position]))).attach();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

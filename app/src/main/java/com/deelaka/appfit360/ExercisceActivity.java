@@ -142,7 +142,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             updateProgress(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal)),runPB);
             updateProgress(calculateProgressPercentage((int) cycKm, Integer.parseInt(cycleCountVal)),cycPB);
         }else{
-            txtStepCount.setText("SC not present!");
+            txtStepCount.setText("Sensor is not present!");
         }
 
         btnViewMap.setOnClickListener(v -> {
