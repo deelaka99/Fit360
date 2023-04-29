@@ -118,22 +118,15 @@
             app:layout_constraintTop_toBottomOf="@id/txtDisplayWaterProgress"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/txtEditTarget"
+        <Button
+            android:id="@+id/btnEditTarget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="serif-monospace"
-            android:text="@string/waterHome3"
-            android:textAlignment="center"
-            android:textColor="@color/darkPurple"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="Edit target"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtDailyDrinkTarget"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toBottomOf="@id/txtDailyDrinkTarget"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@drawable/image5"
+            android:src="@drawable/btn_floating"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
