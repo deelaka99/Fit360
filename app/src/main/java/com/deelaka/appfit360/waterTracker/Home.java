@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,10 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +57,9 @@ public class Home extends Fragment {
     private String mParam1;
     private String mParam2;
     WaterAdapter adapter;
-    TextView txtWaterProgressDisplay, txtWaterPrecentage, txtUserName;
+    TextView txtWaterProgressDisplay, txtWaterPrecentage, txtUserName, txtTodayRecord;
     ImageButton imgBtn50,imgBtn100,imgBtn150,imgBtn200,imgBtn250,imgBtn300,imgBtn350,imgBtn400,imgBtn450;
+    ProgressBar pbRecycler;
     Button btnEditTarget;
     RecyclerView recycler;
     FloatingActionButton btnAddWaterCups;
@@ -71,11 +68,10 @@ public class Home extends Fragment {
     String uid;
     int capacity = 0;
     private String fName;//to store user name getting from the firebase
-
     List<WaterRecord> records = new ArrayList<>();
-
     //variable declaration and initializing
-    int waterTarget,currentBrewedWater;//in milli liters
+    int waterTarget=1000;
+    int currentBrewedWater;
 
     public Home() {
         // Required empty public constructor
@@ -120,9 +116,11 @@ public class Home extends Fragment {
         txtWaterProgressDisplay = rootView.findViewById(R.id.txtDisplayWaterProgress);
         txtWaterPrecentage = rootView.findViewById(R.id.txtDisplayWaterPrecentage);
         txtUserName = rootView.findViewById(R.id.txtWHUsername);
-        pbWater = rootView.findViewById(R.id.pbWater);
+        txtTodayRecord = rootView.findViewById(R.id.txtTodayRecord);
+        pbWater = rootView.findViewById(R.id.pbR1);
         btnAddWaterCups = rootView.findViewById(R.id.btnAddWaterCups);
         recycler = rootView.findViewById(R.id.recycler);
+        pbRecycler = rootView.findViewById(R.id.pbRecycler);
 
         //initialize adapter class
         adapter = new WaterAdapter(getContext(),records);
@@ -134,7 +132,11 @@ public class Home extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             uid = user.getUid(); // Get the UID of the current user
-
+            //hiding recycler view, txtTodayRecord and showing the recycler progressbar
+            txtTodayRecord.setVisibility(View.GONE);
+            recycler.setVisibility(View.GONE);
+            pbRecycler.setVisibility(View.VISIBLE);
+            //referring the firebase database
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             DatabaseReference userRef = databaseReference.child("users").child(uid);
             DatabaseReference waterRecRefBase = databaseReference.child("water_records").child(uid);
@@ -164,19 +166,38 @@ public class Home extends Fragment {
             waterRecRefBase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //Getting the current week day using calendar class
+                    Calendar calendar = Calendar.getInstance();
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    //Create a calender object for filtering the firebase timestamp
+                    Calendar calendar1 = Calendar.getInstance();
                     // get data from the snapshot
                     List<WaterRecord> dataList = new ArrayList<>();
                     // create a MyDataObject for each item in the database
                     currentBrewedWater = 0;
                     for (DataSnapshot shot : snapshot.getChildren()) {
                         WaterRecord dataObject = shot.getValue(WaterRecord.class);
-                        dataList.add(dataObject);
-                        currentBrewedWater+=dataObject.capacity;
+                        long waterTimeStamp = dataObject.time;
+                        calendar1.setTimeInMillis(waterTimeStamp);
+                        int weekDay = calendar1.get(Calendar.DAY_OF_WEEK);
+                        //Check the current day of week is equal to firebase timestamp weekday
+                        if (dayOfWeek==weekDay){
+                            //if true then list is added
+                            dataList.add(dataObject);
+                            //filtering the current day brewed water capacities
+                            currentBrewedWater+=dataObject.capacity;
+                        }
+                    }
+                    //Checking the current dayOfWeek
+                    if (dayOfWeek==1){
+                        //...
                     }
                     records = dataList;
                     adapter.setmList(records);
-                    //Setting the water default target as 1000
-                    waterTarget = 1000;
+                    //hiding recycler progressbar and showing the recycler view and txtTodayRecord
+                    pbRecycler.setVisibility(View.GONE);
+                    txtTodayRecord.setVisibility(View.VISIBLE);
+                    recycler.setVisibility(View.VISIBLE);
                     //Showing the water progress
                     txtWaterProgressDisplay.setText(currentBrewedWater + "/"+waterTarget+"ml");
                     //update percentage
@@ -184,7 +205,6 @@ public class Home extends Fragment {
                     txtWaterPrecentage.setText(percentage +"%");
                     //update progress
                     int progress = (int)(((double)currentBrewedWater/waterTarget)*100);
-                    Log.d("kkkk",String.valueOf(progress));
                     pbWater.setProgress(progress);
                 }
                 @Override
@@ -214,9 +234,7 @@ public class Home extends Fragment {
                 int progress = (int) Math.round((double)currentBrewedWater/waterTarget*100);
                 pbWater.setProgress(progress);
             });
-
             builder.setNegativeButton("Cancel", (dialog12, which) -> dialog12.cancel());
-
             builder.show();
         });
 

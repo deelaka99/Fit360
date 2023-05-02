@@ -1,14 +1,17 @@
 package com.deelaka.appfit360;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -55,10 +58,12 @@ public class RegisterActivity3 extends AppCompatActivity {
         final DatePicker etBirthday = findViewById(R.id.etUPBirthday);
         final EditText etHeight = findViewById(R.id.etUPHeight);
         final EditText etWeight = findViewById(R.id.etUPWeight);
+        ProgressBar pbR3 = findViewById(R.id.pbR3);
         rgSex = findViewById(R.id.rgUPSex);
         RadioButton rbMale = findViewById(R.id.rbUPMale);
         RadioButton rbFemale = findViewById(R.id.rbUPFemale);
         btnCAAccount = findViewById(R.id.btnCAccount);
+        pbR3.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -76,6 +81,8 @@ public class RegisterActivity3 extends AppCompatActivity {
         });
 
         btnCAAccount.setOnClickListener(v -> {
+            btnCAAccount.setVisibility(View.GONE);
+            pbR3.setVisibility(View.VISIBLE);
             if (user != null){
                 // Get the date from the DatePicker
                 int day = etBirthday.getDayOfMonth();
@@ -91,15 +98,23 @@ public class RegisterActivity3 extends AppCompatActivity {
                 //Check EditText objects are null or not
                 if (etFName.getText().toString().isEmpty()){
                     Toast.makeText(this, "Enter Your First name!!!", Toast.LENGTH_SHORT).show();
+                    pbR3.setVisibility(View.GONE);
+                    btnCAAccount.setVisibility(View.VISIBLE);
                 }else{
                     if (etLName.getText().toString().isEmpty()){
                         Toast.makeText(this, "Enter Your Last name!!!", Toast.LENGTH_SHORT).show();
+                        pbR3.setVisibility(View.GONE);
+                        btnCAAccount.setVisibility(View.VISIBLE);
                     }else {
                         if (etHeight.getText().toString().isEmpty()){
                             Toast.makeText(this, "Enter Your Height!!!", Toast.LENGTH_SHORT).show();
+                            pbR3.setVisibility(View.GONE);
+                            btnCAAccount.setVisibility(View.VISIBLE);
                         }else{
                             if (etWeight.getText().toString().isEmpty()){
                                 Toast.makeText(this, "Enter Your Weight!!!", Toast.LENGTH_SHORT).show();
+                                pbR3.setVisibility(View.GONE);
+                                btnCAAccount.setVisibility(View.VISIBLE);
                             }else {
                                 //Adding data to the hash map
                                 Map<String, Object> userData = new HashMap<>();
@@ -124,6 +139,8 @@ public class RegisterActivity3 extends AppCompatActivity {
                                             public void onFailure(@NonNull Exception e) {
                                                 // Handle error
                                                 Toast.makeText(RegisterActivity3.this, "Data not saved " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                pbR3.setVisibility(View.GONE);
+                                                btnCAAccount.setVisibility(View.VISIBLE);
                                             }
                                         });
                             }
@@ -132,5 +149,28 @@ public class RegisterActivity3 extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("Edit Target");
+        builder.setMessage("Are you sure that you want to exit from the registration process? ");
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                user.delete().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("yyy", "User account deleted.");
+                    } else {
+                        Log.d("yyy", "Error deleting user account.", task.getException());
+                    }
+                });
+            }
+            Intent intent = new Intent(RegisterActivity3.this, LogRegMenuActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        builder.setNegativeButton("No", (dialog12, which) -> dialog12.cancel());
+        builder.show();
     }
 }

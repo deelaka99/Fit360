@@ -76,29 +76,28 @@ public class RegisterActivity2 extends AppCompatActivity{
             finish();
         }
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity2.this, RegisterActivity3.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-        //check user exists
-        if(user == null){
-            Intent intent = new Intent(RegisterActivity2.this, LogRegMenuActivity.class);
+        btnNext.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity2.this, RegisterActivity3.class);
             startActivity(intent);
             finish();
-        }
+        });
     }
-
+    @Override
+    public void onBackPressed() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            user.delete().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d("yyy", "User account deleted.");
+                        } else {
+                            Log.d("yyy", "Error deleting user account.", task.getException());
+                        }
+                    });
+        }
+        Intent intent = new Intent(RegisterActivity2.this, RegisterActivity1.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     protected void onResume() {
         super.onResume();

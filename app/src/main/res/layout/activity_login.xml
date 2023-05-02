@@ -45,6 +45,7 @@
         android:id="@+id/forgotPw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="serif"
         android:text="@string/txtForgotPassword"
         android:textAlignment="center"
@@ -54,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswordL"
-        app:layout_constraintVertical_bias="0.115" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/etPasswordL"
@@ -93,33 +94,43 @@
         android:id="@+id/backToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="serif"
         android:text="@string/txtReg42"
         android:textAlignment="center"
         android:textColor="@color/green"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/pbWater"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotPw"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ProgressBar
-        android:id="@+id/pbWater"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/btnLoginL"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backToRegister"/>
+        app:layout_constraintTop_toBottomOf="@id/backToRegister"
+        app:layout_constraintVertical_bias="0.0">
 
+        <ProgressBar
+            android:id="@+id/pbR1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <Button
         android:id="@+id/btnLoginL"
         android:layout_width="169dp"
         android:layout_height="54dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="30dp"
         android:background="@color/green"
         android:enabled="true"
         android:text="@string/btn_login"
@@ -128,8 +139,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbWater"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintTop_toBottomOf="@+id/backToRegister"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

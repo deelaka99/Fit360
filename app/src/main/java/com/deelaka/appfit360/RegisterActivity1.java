@@ -49,7 +49,7 @@ public class RegisterActivity1 extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnNext = findViewById(R.id.btnNextR1);
-        progressBar = findViewById(R.id.pbWater);
+        progressBar = findViewById(R.id.pbR1);
         backToLogin = findViewById(R.id.backToLogin);
         cbTOS = findViewById(R.id.cbTOS);
         cbUpdate = findViewById(R.id.cbUpdate);
@@ -65,6 +65,7 @@ public class RegisterActivity1 extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnNext.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 //Getting email and password to variables
@@ -74,7 +75,8 @@ public class RegisterActivity1 extends AppCompatActivity {
                 //check email and password fields are empty or not
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
                     Toast.makeText(RegisterActivity1.this, "Enter email & password!!!", Toast.LENGTH_SHORT).show();
-                    return;
+                    progressBar.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.VISIBLE);
                 }else{
                     //Check email is in correct format
                     if (isValidEmail(email)) {
@@ -99,12 +101,18 @@ public class RegisterActivity1 extends AppCompatActivity {
                                 });
                             }else{
                                 Toast.makeText(RegisterActivity1.this, "Please check the Term of Services", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                btnNext.setVisibility(View.VISIBLE);
                             }
                         }else{
                             Toast.makeText(RegisterActivity1.this, "Password should be consist of least 6 characters", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            btnNext.setVisibility(View.VISIBLE);
                         }
                     } else {
                         Toast.makeText(RegisterActivity1.this, "Please enter the email in correct format!!!", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        btnNext.setVisibility(View.VISIBLE);
                     }
                 }
             }

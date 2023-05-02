@@ -50,8 +50,9 @@ public class History extends Fragment {
     FirebaseUser user;
     TextView txtSun,txtMon,txtTue,txtWen,txtThu,txtFri,txtSat,txtWeekTarget,txtWeekPercentage,txtWeekAvg;
     Button btnEWTarget;
-    int totSun,totMon,totTue,totWen,totThu,totFri,totSat,totWeek = 0;
-    int currentBrewedWater;
+    int totMon,totTue,totWen,totThu,totFri,totSat;
+    int totSun= 0;
+    int totWeek=0;
     int weekWaterTarget = 50000;//Default week water target
     double avgWeek;
     public History() {
@@ -85,6 +86,7 @@ public class History extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,25 +105,9 @@ public class History extends Fragment {
         txtWeekAvg = rootView.findViewById(R.id.txtWeekAvg);
         btnEWTarget = rootView.findViewById(R.id.btnEWTarget);
 
-        //Getting the week day using calendar class
+        //Getting the current week day using calendar class
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        //Checking the dayOfWeek using if-else condition
-        if (dayOfWeek==1){
-            txtSun.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==2) {
-            txtMon.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==3) {
-            txtTue.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==4) {
-            txtWen.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==5) {
-            txtThu.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==6) {
-            txtFri.setBackgroundColor(Color.BLUE);
-        } else if (dayOfWeek==7) {
-            txtSat.setBackgroundColor(Color.BLUE);
-        }
         //action when touch the edit week target button
         btnEWTarget.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -134,12 +120,12 @@ public class History extends Fragment {
 
             builder.setPositiveButton("Save", (dialog, which) -> {
                 weekWaterTarget = Integer.parseInt(waterTargetInput.getText().toString());
-                Toast.makeText(getContext(), "Your water target is " + weekWaterTarget + "ml.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Your week water target is " + weekWaterTarget + "ml.", Toast.LENGTH_SHORT).show();
                 totWeek=(totSun+totMon+totTue+totWen+totThu+totFri+totSat);
                 avgWeek=totWeek/7;
                 txtWeekTarget.setText(weekWaterTarget+"ml/week");
                 txtWeekAvg.setText(avgWeek +"ml/week");
-                txtWeekPercentage.setText(((double)(totWeek)/weekWaterTarget)*100+"%");
+                txtWeekPercentage.setText((Math.round(((double)totWeek/weekWaterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1))+"%");
             });
             builder.setNegativeButton("Cancel", (dialog12, which) -> dialog12.cancel());
             builder.show();
@@ -157,54 +143,140 @@ public class History extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // get data from the snapshot
                     List<WaterRecord> dataList = new ArrayList<>();
-                    // create a MyDataObject for each item in the database
-                    currentBrewedWater = 0;
+                    //Create a calender object
+                    Calendar calendar1 = Calendar.getInstance();
                     for (DataSnapshot shot : snapshot.getChildren()) {
                         WaterRecord dataObject = shot.getValue(WaterRecord.class);
                         dataList.add(dataObject);
-                        currentBrewedWater+=dataObject.capacity;
-                    }
-                    //Calculating the weekly average
-                    if (dayOfWeek==1){
-                        totSun+=currentBrewedWater;
-                        totMon=0;
-                        totTue=0;
-                        totWen=0;
-                        totThu=0;
-                        totFri=0;
-                        totSat=0;
-                    } else if (dayOfWeek==2) {
-                        totMon+=currentBrewedWater;
-                        totTue=0;
-                        totWen=0;
-                        totThu=0;
-                        totFri=0;
-                        totSat=0;
-                    } else if (dayOfWeek==3) {
-                        totTue+=currentBrewedWater;
-                        totWen=0;
-                        totThu=0;
-                        totFri=0;
-                        totSat=0;
-                    } else if (dayOfWeek==4) {
-                        totWen+=currentBrewedWater;
-                        totThu=0;
-                        totFri=0;
-                        totSat=0;
-                    } else if (dayOfWeek==5) {
-                        totThu+=currentBrewedWater;
-                        totFri=0;
-                        totSat=0;
-                    } else if (dayOfWeek==6) {
-                        totFri+=currentBrewedWater;
-                        totSat=0;
-                    } else if (dayOfWeek==7) {
-                        totSat+=currentBrewedWater;
+
+                        long waterTimeStamp = dataObject.time;
+                        calendar1.setTimeInMillis(waterTimeStamp);
+                        int weekDay = calendar1.get(Calendar.DAY_OF_WEEK);
+                        //Checking the firebase timestamp date and Calculating the week day average
+                        if (weekDay==1){
+                            totSun+=dataObject.capacity;
+                            totMon=0;
+                            totTue=0;
+                            totWen=0;
+                            totThu=0;
+                            totFri=0;
+                            totSat=0;
+                        }else{
+                            if (weekDay==2) {
+                                totMon+=dataObject.capacity;
+                                totTue=0;
+                                totWen=0;
+                                totThu=0;
+                                totFri=0;
+                                totSat=0;
+                            }else{
+                                if (weekDay==3) {
+                                    totTue+=dataObject.capacity;
+                                    totWen=0;
+                                    totThu=0;
+                                    totFri=0;
+                                    totSat=0;
+                                }else{
+                                    if (weekDay==4) {
+                                        totWen+=dataObject.capacity;
+                                        totThu=0;
+                                        totFri=0;
+                                        totSat=0;
+                                    }else{
+                                        if (weekDay==5) {
+                                            totThu+=dataObject.capacity;
+                                            totFri=0;
+                                            totSat=0;
+                                        }else{
+                                            if (weekDay==6) {
+                                                totFri+=dataObject.capacity;
+                                                totSat=0;
+                                            }else{
+                                                if (weekDay==7) {
+                                                    totSat+=dataObject.capacity;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //Checking the current dayOfWeek
+                        if (dayOfWeek==1){
+                            txtSun.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totSun>=1000){
+                                txtSun.setBackgroundColor(Color.GREEN);
+                                txtSun.setTextColor(Color.BLACK);
+                            }else {
+                                txtSun.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==2) {
+                            txtMon.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totMon>=1000){
+                                txtMon.setBackgroundColor(Color.GREEN);
+                                txtMon.setTextColor(Color.BLACK);
+                            }else {
+                                txtMon.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==3) {
+                            txtTue.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totTue>=1000){
+                                txtTue.setBackgroundColor(Color.GREEN);
+                                txtTue.setTextColor(Color.BLACK);
+                            }else {
+                                txtTue.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==4) {
+                            txtWen.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totWen>=1000){
+                                txtWen.setBackgroundColor(Color.GREEN);
+                                txtWen.setTextColor(Color.BLACK);
+                            }else {
+                                txtWen.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==5) {
+                            txtThu.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totThu>=1000){
+                                txtThu.setBackgroundColor(Color.GREEN);
+                                txtThu.setTextColor(Color.BLACK);
+                            }else {
+                                txtThu.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==6) {
+                            txtFri.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totFri>=1000){
+                                txtFri.setBackgroundColor(Color.GREEN);
+                                txtFri.setTextColor(Color.BLACK);
+                            }else {
+                                txtFri.setBackgroundColor(Color.RED);
+                            }
+                        }
+                        if (dayOfWeek==7) {
+                            txtSat.setBackgroundColor(Color.BLUE);
+                        }else {
+                            if (totSat>=1000){
+                                txtSat.setBackgroundColor(Color.GREEN);
+                                txtSat.setTextColor(Color.BLACK);
+                            }else {
+                                txtSat.setBackgroundColor(Color.RED);
+                            }
+                        }
                     }
                     totWeek=(totSun+totMon+totTue+totWen+totThu+totFri+totSat);
                     avgWeek=totWeek/7;
                     txtWeekAvg.setText(avgWeek +"ml/week");
-                    txtWeekPercentage.setText(((double)(totWeek)/weekWaterTarget)*100+"%");
+                    txtWeekPercentage.setText((Math.round(((double)totWeek/weekWaterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1))+"%");
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

@@ -16,4 +16,7 @@
     <color name="light_grey">#EFEFEF</color>
     <color name="darkPurple">#1F0251</color>
     <color name="red">#F80054</color>
+    <color name="box_blue">#0000FF</color>
+    <color name="box_green">#00FF00</color>
+    <color name="box_red">#FF0000</color>
 </resources>

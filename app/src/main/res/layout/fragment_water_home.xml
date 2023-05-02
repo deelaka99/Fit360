@@ -35,7 +35,7 @@
             android:id="@+id/txtWHUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You logged in as!"
+            android:text="You logged in as..."
             android:textColor="@color/green"
             android:textSize="25sp"
             android:textStyle="italic"
@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ProgressBar
-            android:id="@+id/pbWater"
+            android:id="@+id/pbR1"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="250dp"
             android:layout_height="30dp"
@@ -76,14 +76,14 @@
             android:fontFamily="monospace"
             android:text="@string/waterHome5"
             android:textAlignment="center"
-            android:textColor="@color/ldark_green"
-            android:textSize="20sp"
+            android:textColor="@color/box_blue"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pbWater"
+            app:layout_constraintTop_toBottomOf="@id/pbR1"
             app:layout_constraintVertical_bias="0.060000002" />
 
         <TextView
@@ -171,7 +171,23 @@
             app:layout_constraintTop_toBottomOf="@id/btnAddWaterCups"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/pbRecycler"
+            style="?android:attr/progressBarStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
