@@ -79,6 +79,7 @@
     <string name="waterHome3">Edit Target</string>
     <string name="waterHome4">Today\'s Record</string>
     <string name="waterHome5">0%</string>
+    <string name="waterHome6">Loading...</string>
     <string name="waterHis1">Weekly completion</string>
     <string name="waterHis2">Sun</string>
     <string name="waterHis3">Mon</string>
@@ -91,8 +92,11 @@
     <string name="waterHis10">Weekly average</string>
     <string name="waterHis11">Monthly average</string>
     <string name="waterHis12">Weekly percentage</string>
-    <string name="waterHis13">0ml/day</string>
+    <string name="waterHis13">0ml/week</string>
     <string name="waterHis14">80%</string>
+    <string name="waterHis15">Edit Week Target</string>
+    <string name="waterHis16">Week Target</string>
+    <string name="waterHis17">50000ml/week</string>
     <string name="foodHome1">400/2000cal</string>
     <string name="foodHome2">Daily Calories Target</string>
     <string name="foodHis1">Food\'s Calories Report</string>

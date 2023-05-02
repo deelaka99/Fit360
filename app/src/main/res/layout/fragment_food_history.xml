@@ -7,7 +7,7 @@
     tools:context=".foodTracker.FoodHistory">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout6"
+        android:id="@+id/conLay1"
         android:layout_width="match_parent"
         android:layout_height="195dp"
         android:background="@color/purple_200"
@@ -121,7 +121,7 @@
             app:layout_constraintVertical_bias="0.316" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/txtSun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis2"
@@ -134,7 +134,7 @@
             app:layout_constraintVertical_bias="0.19" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/txtMon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis3"
@@ -142,12 +142,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.086"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintStart_toEndOf="@+id/txtSun"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.187" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/txtTue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis4"
@@ -155,12 +155,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.105"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintStart_toEndOf="@+id/txtMon"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.166" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/txtWen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis5"
@@ -168,12 +168,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.115"
-            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintStart_toEndOf="@+id/txtTue"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.181" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/txtThu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis6"
@@ -181,12 +181,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.116"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintStart_toEndOf="@+id/txtWen"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.159" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/txtFri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis7"
@@ -194,12 +194,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.274"
-            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintStart_toEndOf="@+id/txtThu"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.187" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/txtSat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/waterHis8"
@@ -207,7 +207,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toEndOf="@+id/textView20"
+            app:layout_constraintStart_toEndOf="@+id/txtFri"
             app:layout_constraintTop_toBottomOf="@+id/imageView4"
             app:layout_constraintVertical_bias="0.187" />
 
@@ -225,7 +225,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/conLay1"
         app:layout_constraintVertical_bias="0.221" />
 
     <TextView
@@ -243,7 +243,7 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/txtMonthAvg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/foodHis2"
@@ -254,7 +254,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView28"
+        app:layout_constraintTop_toBottomOf="@+id/txtWeekAvg"
         app:layout_constraintVertical_bias="0.073" />
 
     <ImageView
@@ -296,7 +296,7 @@
         app:layout_constraintVertical_bias="0.138" />
 
     <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/txtWeekPercentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/waterHis14"
@@ -307,11 +307,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.385"
         app:layout_constraintStart_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/txtMonthAvg"
         app:layout_constraintVertical_bias="0.104" />
 
     <TextView
-        android:id="@+id/textView28"
+        android:id="@+id/txtWeekAvg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/foodHis2"

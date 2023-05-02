@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.firebase:firebase-auth-ktx:21.2.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation 'com.firebaseui:firebase-ui-database:7.2.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.karumi:dexter:6.2.3'
