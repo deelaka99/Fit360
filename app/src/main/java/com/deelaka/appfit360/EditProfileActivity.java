@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     TextView uName,uSex,uBirthday, uHeight, uWeight;
     String fName,lName, sex, birthday, height, weight;
-    Button editProfileBtn, btnEback, btnELogout;
+    Button editProfileBtn, btnEBack, btnELogout;
     FirebaseUser user;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
@@ -36,7 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
         uHeight = findViewById(R.id.txtUHeight);
         uWeight = findViewById(R.id.txtUWeight);
         editProfileBtn = findViewById(R.id.btnEEditProfile);
-        btnEback = findViewById(R.id.btnEBack);
+        btnEBack = findViewById(R.id.btnEBack);
         btnELogout = findViewById(R.id.btnELogout);
 
         // Get the current authenticated user
@@ -89,20 +88,16 @@ public class EditProfileActivity extends AppCompatActivity {
             });
         }
 
-        btnEback.setOnClickListener(v -> {
+        btnEBack.setOnClickListener(v -> {
             Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
             startActivity(intent);
-            finish();
         });
 
-        btnELogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btnELogout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
 
 

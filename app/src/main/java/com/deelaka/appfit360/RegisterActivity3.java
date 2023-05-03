@@ -1,6 +1,5 @@
 package com.deelaka.appfit360;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,11 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -60,24 +54,19 @@ public class RegisterActivity3 extends AppCompatActivity {
         final EditText etWeight = findViewById(R.id.etUPWeight);
         ProgressBar pbR3 = findViewById(R.id.pbR3);
         rgSex = findViewById(R.id.rgUPSex);
-        RadioButton rbMale = findViewById(R.id.rbUPMale);
-        RadioButton rbFemale = findViewById(R.id.rbUPFemale);
         btnCAAccount = findViewById(R.id.btnCAccount);
         pbR3.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        //Set an onclick-listner to radio group
-        rgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // Get the checked RadioButton's ID
-                RadioButton checkedRadioButton = findViewById(checkedId);
+        //Set an onclick-listener to radio group
+        rgSex.setOnCheckedChangeListener((group, checkedId) -> {
+            // Get the checked RadioButton's ID
+            RadioButton checkedRadioButton = findViewById(checkedId);
 
-                // Get the text of the checked RadioButton
-                radioBtnValue = checkedRadioButton.getText().toString();
-            }
+            // Get the text of the checked RadioButton
+            radioBtnValue = checkedRadioButton.getText().toString();
         });
 
         btnCAAccount.setOnClickListener(v -> {
@@ -125,23 +114,17 @@ public class RegisterActivity3 extends AppCompatActivity {
                                 userData.put("Weight", Double.parseDouble(etWeight.getText().toString()));
                                 userData.put("Sex", radioBtnValue);
                                 userRef.setValue(userData)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(RegisterActivity3.this, "Data Saved!", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(RegisterActivity3.this, HomeActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(RegisterActivity3.this, "Data Saved!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(RegisterActivity3.this, HomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
                                         })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                // Handle error
-                                                Toast.makeText(RegisterActivity3.this, "Data not saved " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                pbR3.setVisibility(View.GONE);
-                                                btnCAAccount.setVisibility(View.VISIBLE);
-                                            }
+                                        .addOnFailureListener(e -> {
+                                            // Handle error
+                                            Toast.makeText(RegisterActivity3.this, "Data not saved " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            pbR3.setVisibility(View.GONE);
+                                            btnCAAccount.setVisibility(View.VISIBLE);
                                         });
                             }
                         }
