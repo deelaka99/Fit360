@@ -46,54 +46,56 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.pbR1);
         backToRegister = findViewById(R.id.backToRegister);
 
-        backToRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity1.class);
-                startActivity(intent);
-                finish();
-            }
+        backToRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity1.class);
+            startActivity(intent);
+            finish();
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email, password;
-                //Getting email and password to variables
-                email = String.valueOf(etEmail.getText());
-                password = String.valueOf(etPassword.getText());
+        btnLogin.setOnClickListener(v -> {
+            String email, password;
+            //Getting email and password to variables
+            email = String.valueOf(etEmail.getText());
+            password = String.valueOf(etPassword.getText());
 
-                //check email and password fields are empty or not
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(LoginActivity.this, "Enter email!", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    btnLogin.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(task -> {
-                            progressBar.setVisibility(View.GONE);
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                btnLogin.setVisibility(View.VISIBLE);
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
+            //check email and password fields are empty or not
+            if (TextUtils.isEmpty(email)){
+                Toast.makeText(LoginActivity.this, "Enter email!", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (TextUtils.isEmpty(password)) {
+                Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                btnLogin.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
             }
+
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            btnLogin.setVisibility(View.VISIBLE);
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(LoginActivity.this, LogRegMenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

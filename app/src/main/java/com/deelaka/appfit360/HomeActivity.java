@@ -1,13 +1,10 @@
 package com.deelaka.appfit360;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.deelaka.appfit360.foodTracker.FoodTrackerActivity;
 import com.deelaka.appfit360.waterTracker.WaterTrackerActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,14 +36,11 @@ public class  HomeActivity extends AppCompatActivity {
         }
 
         //For logout btn
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btnLogOut.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
         });
 
         //For Edit profile button (having pencil mark icon)
@@ -60,7 +54,7 @@ public class  HomeActivity extends AppCompatActivity {
         //For Track your exercise's Go button
         Button btnEx1 = findViewById(R.id.btnEx1);
         btnEx1.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, ExercisceActivity.class);
+            Intent intent = new Intent(HomeActivity.this, ExerciseActivity.class);
             startActivity(intent);
             finish();
         });

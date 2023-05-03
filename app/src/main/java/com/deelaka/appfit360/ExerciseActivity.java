@@ -31,7 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ExercisceActivity extends AppCompatActivity implements SensorEventListener {
+public class ExerciseActivity extends AppCompatActivity implements SensorEventListener {
     TextView txtStepCount, txtRunKm, txtCycKm, txtStepCountDisplay, txtRunKmDisplay, txtCycKmDisplay, txtSPPercentage,txtRPPercentage,txtCPPercentage;
     private ProgressBar stepPB, runPB, cycPB;
     private double runKm, cycKm, burntCalories, weight;
@@ -110,7 +110,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Handle error
-                    Toast.makeText(ExercisceActivity.this, "Can't retreive data from the database!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ExerciseActivity.this, "Can't retrieve data from the database!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -154,17 +154,17 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
             // create LatLng objects for the starting and destination points
             LatLng startingPoint = new LatLng(startingLat, startingLng);
             LatLng destinationPoint = new LatLng(destinationLat, destinationLng);
-            Intent intent = new Intent(ExercisceActivity.this, MapActivity.class);
+            Intent intent = new Intent(ExerciseActivity.this, MapActivity.class);
             intent.putExtra("startingPoint", startingPoint);
             intent.putExtra("destinationPoint", destinationPoint);
-            Log.d("FirstActivity", "Starting point: " + startingPoint.toString());
-            Log.d("FirstActivity", "Destination point: " + destinationPoint.toString());
+            Log.d("FirstActivity", "Starting point: " + startingPoint);
+            Log.d("FirstActivity", "Destination point: " + destinationPoint);
             startActivity(intent);
             finish();
         });
 
         btnEBack.setOnClickListener(v -> {
-            Intent intent = new Intent(ExercisceActivity.this, HomeActivity.class);
+            Intent intent = new Intent(ExerciseActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
@@ -172,27 +172,25 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         //For the btnWalEdiPla button
         Button btnWalEdiPla = findViewById(R.id.btnWalEdiPla);
         btnWalEdiPla.setOnClickListener(v -> {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(ExercisceActivity.this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(ExerciseActivity.this);
             dialog.setTitle("Alert");
 
             dialog.setMessage("Set your step limit: ");
 
-            final EditText stepCountInput = new EditText(ExercisceActivity.this);
+            final EditText stepCountInput = new EditText(ExerciseActivity.this);
             stepCountInput.setInputType(InputType.TYPE_CLASS_NUMBER);
             dialog.setView(stepCountInput);
 
             dialog.setPositiveButton("Save", (dialog1, which) -> {
                 stepCountVal = stepCountInput.getText().toString();
-                Toast.makeText(ExercisceActivity.this, "Your walking limit is "+stepCountVal+" steps.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExerciseActivity.this, "Your walking limit is "+stepCountVal+" steps.", Toast.LENGTH_SHORT).show();
                 txtStepCount.setText("Limit: "+stepCountVal + " Steps");
                 //update percentage
                 txtSPPercentage.setText(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal))+"%");
                 //update progress
                 updateProgress(calculateProgressPercentage(stepCount, Integer.parseInt(stepCountVal)),stepPB);
             });
-
             dialog.setNegativeButton("Cancel", (dialog12, which) -> dialog12.cancel());
-
             dialog.show();
         });
 
@@ -200,18 +198,18 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         Button btnRunEdiPla = findViewById(R.id.btnRunEdiPla);
 
         btnRunEdiPla.setOnClickListener(v -> {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(ExercisceActivity.this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(ExerciseActivity.this);
             dialog.setTitle("Alert");
 
             dialog.setMessage("Set your running limit in Kilo Meters:");
 
-            final EditText runCountInput = new EditText(ExercisceActivity.this);
+            final EditText runCountInput = new EditText(ExerciseActivity.this);
             runCountInput.setInputType(InputType.TYPE_CLASS_NUMBER);
             dialog.setView(runCountInput);
 
             dialog.setPositiveButton("Save", (dialog13, which) -> {
                 runCountVal = runCountInput.getText().toString();
-                Toast.makeText(ExercisceActivity.this, "Your running limit is "+runCountVal+"KM.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExerciseActivity.this, "Your running limit is "+runCountVal+"KM.", Toast.LENGTH_SHORT).show();
                 txtRunKm.setText("Limit: "+runCountVal + " Km");
                 //update percentage
                 txtRPPercentage.setText(calculateProgressPercentage((int) runKm, Integer.parseInt(runCountVal))+"%");
@@ -229,18 +227,18 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
         Button btnCycEdiPla = findViewById(R.id.btnCycEdiPla);
 
         btnCycEdiPla.setOnClickListener(v -> {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(ExercisceActivity.this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(ExerciseActivity.this);
             dialog.setTitle("Alert");
 
             dialog.setMessage("Set your cycling limit in Kilo Meters:");
 
-            final EditText cycleCountInput = new EditText(ExercisceActivity.this);
+            final EditText cycleCountInput = new EditText(ExerciseActivity.this);
             cycleCountInput.setInputType(InputType.TYPE_CLASS_NUMBER);
             dialog.setView(cycleCountInput);
 
             dialog.setPositiveButton("Save", (dialog15, which) -> {
                 cycleCountVal = cycleCountInput.getText().toString();
-                Toast.makeText(ExercisceActivity.this, "Your cycling limit is "+cycleCountVal+"KM.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExerciseActivity.this, "Your cycling limit is "+cycleCountVal+"KM.", Toast.LENGTH_SHORT).show();
                 txtCycKm.setText("Limit: "+cycleCountVal + " Km");
                 //update percentage
                 txtCPPercentage.setText(calculateProgressPercentage((int) cycKm, Integer.parseInt(runCountVal))+"%");
@@ -303,16 +301,16 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnResetRunning.setBackgroundTintList(colorStateListGray);
                 btnStartCycling.setBackgroundTintList(colorStateListGray);
                 btnResetCycling.setBackgroundTintList(colorStateListGray);
-                //Change textcolor to black
+                //Change text color to black
                 btnResetRunning.setTextColor(Color.BLACK);
                 btnResetCycling.setTextColor(Color.BLACK);
                 isWalkStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
-                //calculate burnt callories for walking
+                //calculate burnt calories for walking
                 burntCalories = calculateBurntCalories(1,weight);
-                //showing an alertDialog box for the burnt callories
-                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //showing an alertDialog box for the burnt calories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExerciseActivity.this);
                 //Set the title of the dialogBox
                 builder.setTitle("Congratulations!");
                 //Set the message to display in the dialog
@@ -336,7 +334,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnStartCycling.setBackgroundTintList(colorStateListGreen);
                 btnResetRunning.setBackgroundTintList(colorStateListRed);
                 btnResetCycling.setBackgroundTintList(colorStateListRed);
-                //Change textcolours
+                //Change text-colours
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetRunning.setTextColor(Color.WHITE);
                 isWalkStart = true;
@@ -366,16 +364,16 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnResetSteps.setBackgroundTintList(colorStateListGray);
                 btnStartCycling.setBackgroundTintList(colorStateListGray);
                 btnResetCycling.setBackgroundTintList(colorStateListGray);
-                //Change textcolor to black
+                //Change text color to black
                 btnResetSteps.setTextColor(Color.BLACK);
                 btnResetCycling.setTextColor(Color.BLACK);
                 isRunStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
-                //calculate burnt callories for walking
+                //calculate burnt calories for walking
                 burntCalories = calculateBurntCalories(2,weight);
-                //showing an alertDialog box for the burnt callories
-                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //showing an alertDialog box for the burnt calories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExerciseActivity.this);
                 //Set the title of the dialogBox
                 builder.setTitle("Congratulations!");
                 //Set the message to display in the dialog
@@ -400,7 +398,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnStartCycling.setBackgroundTintList(colorStateListGreen);
                 btnResetSteps.setBackgroundTintList(colorStateListRed);
                 btnResetCycling.setBackgroundTintList(colorStateListRed);
-                //Change textcolours
+                //Change text-colours
                 btnResetCycling.setTextColor(Color.WHITE);
                 btnResetSteps.setTextColor(Color.WHITE);
                 isRunStart = true;
@@ -429,16 +427,16 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnResetSteps.setBackgroundTintList(colorStateListGray);
                 btnStartRunning.setBackgroundTintList(colorStateListGray);
                 btnResetRunning.setBackgroundTintList(colorStateListGray);
-                //Change textcolor to black
+                //Change text color to black
                 btnResetSteps.setTextColor(Color.BLACK);
                 btnResetRunning.setTextColor(Color.BLACK);
                 isCycStart = false;
                 onResume();//Resuming the sensor event listener
             }else{
-                //calculate burnt callories for walking
+                //calculate burnt calories for walking
                 burntCalories = calculateBurntCalories(3,weight);
-                //showing an alertDialog box for the burnt callories
-                AlertDialog.Builder builder = new AlertDialog.Builder(ExercisceActivity.this);
+                //showing an alertDialog box for the burnt calories
+                AlertDialog.Builder builder = new AlertDialog.Builder(ExerciseActivity.this);
                 //Set the title of the dialogBox
                 builder.setTitle("Congratulations!");
                 //Set the message to display in the dialog
@@ -463,7 +461,7 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 btnStartCycling.setBackgroundTintList(colorStateListGreen);
                 btnResetSteps.setBackgroundTintList(colorStateListRed);
                 btnResetRunning.setBackgroundTintList(colorStateListRed);
-                //Change textcolours
+                //Change text-colours
                 btnResetRunning.setTextColor(Color.WHITE);
                 btnResetSteps.setTextColor(Color.WHITE);
                 previousSensorValue = -1;
@@ -567,5 +565,13 @@ public class ExercisceActivity extends AppCompatActivity implements SensorEventL
                 break;
         }
         return burntCalories;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ExerciseActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

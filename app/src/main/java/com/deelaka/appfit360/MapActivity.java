@@ -9,9 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.Manifest;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -67,7 +65,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         btnMBack.setOnClickListener(v -> {
             // Back to the exercise activity
-            Intent intent = new Intent(MapActivity.this, ExercisceActivity.class);
+            Intent intent = new Intent(MapActivity.this, ExerciseActivity.class);
             startActivity(intent);
             finish();
         });

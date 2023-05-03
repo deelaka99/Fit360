@@ -2,6 +2,7 @@ package com.deelaka.appfit360;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ public class RegisterActivity2 extends AppCompatActivity{
     FirebaseUser user;
     Button btnNext;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class RegisterActivity2 extends AppCompatActivity{
         ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);
         btnNext.setEnabled(false);
         btnNext.setBackgroundTintList(colorStateListGray);
-        btnNext.setText("Verify Email first...");
+        btnNext.setText(getString(R.string.txtReg25));
 
         if (user != null) {
             txtEmailR2.setText(user.getEmail());
@@ -107,7 +109,7 @@ public class RegisterActivity2 extends AppCompatActivity{
                     user = updatedUser;
                     btnNext.setEnabled(true);
                     btnNext.setBackgroundTintList(colorStateListGreen);
-                    btnNext.setText("Next");
+                    btnNext.setText(getString(R.string.btn_next));
                 } else {
                     // Email is not verified, show a toast message
                     Toast.makeText(getApplicationContext(), "Please verify your email address", Toast.LENGTH_SHORT).show();

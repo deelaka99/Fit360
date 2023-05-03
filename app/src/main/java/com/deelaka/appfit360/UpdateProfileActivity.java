@@ -20,7 +20,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     FirebaseUser user;
     String radioUPBtnValue;
     RadioGroup rgUPSex;
-    Button btnUPUpdate, btnUPBack;
+    Button btnUPUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         final EditText etUPWeight = findViewById(R.id.etUPWeight);
         rgUPSex = findViewById(R.id.rgUPSex);
         btnUPUpdate = findViewById(R.id.btnUPUpdate);
-        btnUPBack = findViewById(R.id.btnUPBack);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -47,13 +46,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
             // Get the text of the checked RadioButton
             radioUPBtnValue = checkedRadioButton.getText().toString();
         });
-
-        btnUPBack.setOnClickListener(v -> {
-            Intent intent = new Intent(UpdateProfileActivity.this, EditProfileActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
         btnUPUpdate.setOnClickListener(v -> {
             if (user != null){
                 // Get the date from the DatePicker
@@ -87,5 +79,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(UpdateProfileActivity.this, EditProfileActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

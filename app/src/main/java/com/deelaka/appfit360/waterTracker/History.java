@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,7 +121,7 @@ public class History extends Fragment {
                 weekWaterTarget = Integer.parseInt(waterTargetInput.getText().toString());
                 Toast.makeText(getContext(), "Your week water target is " + weekWaterTarget + "ml.", Toast.LENGTH_SHORT).show();
                 totWeek=(totSun+totMon+totTue+totWen+totThu+totFri+totSat);
-                avgWeek=totWeek/7;
+                avgWeek=(double) (totWeek)/7;
                 txtWeekTarget.setText(weekWaterTarget+"ml/week");
                 txtWeekAvg.setText(avgWeek +"ml/week");
                 txtWeekPercentage.setText((Math.round(((double)totWeek/weekWaterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1))+"%");
@@ -138,7 +137,7 @@ public class History extends Fragment {
             DatabaseReference waterRecRefBase = databaseReference.child("water_records").child(uid);
             // Read data from Realtime Database (user references)
             waterRecRefBase.addValueEventListener(new ValueEventListener() {
-                @SuppressLint("SetTextI18n")
+                @SuppressLint({"SetTextI18n", "DefaultLocale"})
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     // get data from the snapshot
@@ -274,8 +273,8 @@ public class History extends Fragment {
                         }
                     }
                     totWeek=(totSun+totMon+totTue+totWen+totThu+totFri+totSat);
-                    avgWeek=totWeek/7;
-                    txtWeekAvg.setText(avgWeek +"ml/week");
+                    avgWeek=(double)(totWeek)/7;
+                    txtWeekAvg.setText(String.format("%.2f", avgWeek) +"ml/week");
                     txtWeekPercentage.setText((Math.round(((double)totWeek/weekWaterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1))+"%");
                 }
                 @Override

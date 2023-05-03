@@ -9,8 +9,6 @@ public class WaterRecord {
     public int capacity;
     @PropertyName("Time")
     public long time;
-
-
     public WaterRecord() {
     }
 }

@@ -17,6 +17,7 @@
     You\'ll be able to continue setting up your
     account from here
     after you verify your email address.</string>
+    <string name="txtReg25">Verify Email first…</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -31,7 +32,7 @@
     <string name="txtReg33">Last name</string>
     <string name="txtReg34">Birthday</string>
     <string name="txtReg35">Height</string>
-    <string name="txtReg36">Sex</string>
+    <string name="txtReg36">Gender</string>
     <string name="txtReg37">Weight</string>
     <string name="txtReg38">cm</string>
     <string name="txtReg39">Kg</string>

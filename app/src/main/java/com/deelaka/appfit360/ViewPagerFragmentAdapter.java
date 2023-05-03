@@ -10,7 +10,7 @@ import com.deelaka.appfit360.waterTracker.Home;
 
 public class ViewPagerFragmentAdapter extends FragmentStateAdapter {
 
-    private String[] titles = new String[]{"Home","History"};
+    private final String[] titles = new String[]{"Home","History"};
     public ViewPagerFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }

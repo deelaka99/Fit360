@@ -57,7 +57,7 @@ public class Home extends Fragment {
     private String mParam1;
     private String mParam2;
     WaterAdapter adapter;
-    TextView txtWaterProgressDisplay, txtWaterPrecentage, txtUserName, txtTodayRecord;
+    TextView txtWaterProgressDisplay, txtWaterPercentage, txtUserName, txtTodayRecord;
     ImageButton imgBtn50,imgBtn100,imgBtn150,imgBtn200,imgBtn250,imgBtn300,imgBtn350,imgBtn400,imgBtn450;
     ProgressBar pbRecycler;
     Button btnEditTarget;
@@ -114,7 +114,7 @@ public class Home extends Fragment {
 
         btnEditTarget = rootView.findViewById(R.id.btnEditTarget);
         txtWaterProgressDisplay = rootView.findViewById(R.id.txtDisplayWaterProgress);
-        txtWaterPrecentage = rootView.findViewById(R.id.txtDisplayWaterPrecentage);
+        txtWaterPercentage = rootView.findViewById(R.id.txtDisplayWaterPrecentage);
         txtUserName = rootView.findViewById(R.id.txtWHUsername);
         txtTodayRecord = rootView.findViewById(R.id.txtTodayRecord);
         pbWater = rootView.findViewById(R.id.pbR1);
@@ -158,7 +158,7 @@ public class Home extends Fragment {
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Handle error
-                    Toast.makeText(getContext(), "Can't retreive data from the database!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Can't retrieve data from the database!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -202,7 +202,7 @@ public class Home extends Fragment {
                     txtWaterProgressDisplay.setText(currentBrewedWater + "/"+waterTarget+"ml");
                     //update percentage
                     double percentage = Math.round(((double)currentBrewedWater/waterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1);
-                    txtWaterPrecentage.setText(percentage +"%");
+                    txtWaterPercentage.setText(percentage +"%");
                     //update progress
                     int progress = (int)(((double)currentBrewedWater/waterTarget)*100);
                     pbWater.setProgress(progress);
@@ -229,7 +229,7 @@ public class Home extends Fragment {
                 txtWaterProgressDisplay.setText(currentBrewedWater + "/"+waterTarget+"ml");
                 //update percentage
                 double percentage = Math.round(((double)currentBrewedWater/waterTarget)*100 * Math.pow(10, 1)) / Math.pow(10, 1);
-                txtWaterPrecentage.setText(percentage +"%");
+                txtWaterPercentage.setText(percentage +"%");
                 //update progress
                 int progress = (int) Math.round((double)currentBrewedWater/waterTarget*100);
                 pbWater.setProgress(progress);

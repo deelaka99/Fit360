@@ -2,10 +2,14 @@ package com.deelaka.appfit360;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 public class EditProfileActivity extends AppCompatActivity {
     TextView uName,uSex,uBirthday, uHeight, uWeight;
     String fName,lName, sex, birthday, height, weight;
-    Button editProfileBtn, btnEBack, btnELogout;
+    Button editProfileBtn, btnELogout;
+    ProgressBar pbEP1,pbEP2;
+    ConstraintLayout conLay6;
     FirebaseUser user;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
@@ -35,13 +41,24 @@ public class EditProfileActivity extends AppCompatActivity {
         uHeight = findViewById(R.id.txtUHeight);
         uWeight = findViewById(R.id.txtUWeight);
         editProfileBtn = findViewById(R.id.btnEEditProfile);
-        btnEBack = findViewById(R.id.btnEBack);
         btnELogout = findViewById(R.id.btnELogout);
+        pbEP1 = findViewById(R.id.pbEP1);
+        pbEP2 = findViewById(R.id.pbEP2);
+        conLay6 = findViewById(R.id.conLay6);
 
+        //Hiding progress bars beginning of the activity
+        pbEP1.setVisibility(View.GONE);
+        pbEP2.setVisibility(View.GONE);
         // Get the current authenticated user
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String uid = user.getUid(); // Get the UID of the current user
+            //Showing progress bars and hiding the text views and constraint layouts
+            uName.setVisibility(View.GONE);
+            conLay6.setVisibility(View.GONE);
+            pbEP1.setVisibility(View.VISIBLE);
+            pbEP2.setVisibility(View.VISIBLE);
+            // Get the UID of the current user
+            String uid = user.getUid();
 
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             DatabaseReference userRef = databaseReference.child("users").child(uid);
@@ -73,6 +90,11 @@ public class EditProfileActivity extends AppCompatActivity {
                     uBirthday.setText(birthday);
                     uHeight.setText(height+"cm");
                     uWeight.setText(weight + "Kg");
+                    //Hiding progress bars and showing the text views
+                    pbEP1.setVisibility(View.GONE);
+                    pbEP2.setVisibility(View.GONE);
+                    uName.setVisibility(View.VISIBLE);
+                    conLay6.setVisibility(View.VISIBLE);
 
                     editProfileBtn.setOnClickListener(v -> {
                         Intent intent = new Intent(EditProfileActivity.this, UpdateProfileActivity.class);
@@ -87,19 +109,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             });
         }
-
-        btnEBack.setOnClickListener(v -> {
-            Intent intent = new Intent(EditProfileActivity.this, HomeActivity.class);
-            startActivity(intent);
-        });
-
         btnELogout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -2,22 +2,16 @@ package com.deelaka.appfit360.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.deelaka.appfit360.R;
 import com.deelaka.appfit360.models.WaterRecord;
-
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +48,7 @@ public class WaterAdapter extends RecyclerView.Adapter<WaterAdapter.WaterViewHol
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
         String timeString = timeFormat.format(date);
         //Display date and time strings
-        holder.tv.setText(waterRecord.capacity+"ml | "+timeString+" | "+dateString);
+        holder.tv.setText("Capacity: "+waterRecord.capacity+"ml\nTime: "+timeString+"\nDate: "+dateString);
       }
     @Override
     public int getItemCount() {
