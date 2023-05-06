@@ -246,15 +246,15 @@ public class FoodHome extends Fragment {
             builder.setMessage("You can add by touching preferred food calories: ");
 
             //connecting with water_dialog_custom.xml objects
-            imgBtn50 = dialogView.findViewById(R.id.btnWater11);
-            imgBtn100 = dialogView.findViewById(R.id.btnWater12);
-            imgBtn150 = dialogView.findViewById(R.id.btnWater13);
-            imgBtn200 = dialogView.findViewById(R.id.btnWater21);
-            imgBtn250 = dialogView.findViewById(R.id.btnWater22);
-            imgBtn300 = dialogView.findViewById(R.id.btnWater23);
-            imgBtn350 = dialogView.findViewById(R.id.btnWater31);
-            imgBtn400 = dialogView.findViewById(R.id.btnWater32);
-            imgBtn450 = dialogView.findViewById(R.id.btnWater33);
+            imgBtn50 = dialogView.findViewById(R.id.btnFood11);
+            imgBtn100 = dialogView.findViewById(R.id.btnFood12);
+            imgBtn150 = dialogView.findViewById(R.id.btnFood13);
+            imgBtn200 = dialogView.findViewById(R.id.btnFood21);
+            imgBtn250 = dialogView.findViewById(R.id.btnFood22);
+            imgBtn300 = dialogView.findViewById(R.id.btnFood23);
+            imgBtn350 = dialogView.findViewById(R.id.btnFood31);
+            imgBtn400 = dialogView.findViewById(R.id.btnFood32);
+            imgBtn450 = dialogView.findViewById(R.id.btnFood33);
 
             imgBtn50.setOnClickListener(v1 -> {
                 ColorStateList colorStateListGreen = ColorStateList.valueOf(Color.GREEN);

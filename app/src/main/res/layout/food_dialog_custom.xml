@@ -5,7 +5,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -17,52 +17,27 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:gravity="end">
-                <ImageButton
-                    android:id="@+id/btnWater11"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/water_50ml" />
 
                 <ImageButton
-                    android:id="@+id/btnWater12"
+                    android:id="@+id/btnFood11"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_100ml" />
-                <ImageButton
-                    android:id="@+id/btnWater13"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/water_150ml" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:gravity="end">
+                    android:src="@drawable/food50" />
 
                 <ImageButton
-                    android:id="@+id/btnWater21"
+                    android:id="@+id/btnFood12"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_200ml" />
+                    android:src="@drawable/food100" />
+
                 <ImageButton
-                    android:id="@+id/btnWater22"
+                    android:id="@+id/btnFood13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_250ml" />
-                <ImageButton
-                    android:id="@+id/btnWater23"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/water_300ml" />
+                    android:src="@drawable/food150" />
 
             </LinearLayout>
             <LinearLayout
@@ -73,23 +48,54 @@
                 android:gravity="end">
 
                 <ImageButton
-                    android:id="@+id/btnWater31"
+                    android:id="@+id/btnFood21"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_350ml" />
+                    android:src="@drawable/food250" />
+
                 <ImageButton
-                    android:id="@+id/btnWater32"
+                    android:id="@+id/btnFood22"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_400ml" />
+                    android:src="@drawable/food250" />
+
                 <ImageButton
-                    android:id="@+id/btnWater33"
+                    android:id="@+id/btnFood23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/water_450ml" />
+                    android:src="@drawable/food300" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:gravity="end">
+
+                <ImageButton
+                    android:id="@+id/btnFood31"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/food350" />
+
+                <ImageButton
+                    android:id="@+id/btnFood32"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/food450" />
+
+                <ImageButton
+                    android:id="@+id/btnFood33"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/food450" />
 
             </LinearLayout>
         </LinearLayout>
