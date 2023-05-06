@@ -119,7 +119,7 @@ public class Home extends Fragment {
         txtTodayRecord = rootView.findViewById(R.id.txtTodayRecord);
         pbWater = rootView.findViewById(R.id.pbR1);
         btnAddWaterCups = rootView.findViewById(R.id.btnAddWaterCups);
-        recycler = rootView.findViewById(R.id.recycler);
+        recycler = rootView.findViewById(R.id.waterRecycler);
         pbRecycler = rootView.findViewById(R.id.pbRecycler);
 
         //initialize adapter class
@@ -187,10 +187,6 @@ public class Home extends Fragment {
                             //filtering the current day brewed water capacities
                             currentBrewedWater+=dataObject.capacity;
                         }
-                    }
-                    //Checking the current dayOfWeek
-                    if (dayOfWeek==1){
-                        //...
                     }
                     records = dataList;
                     adapter.setmList(records);

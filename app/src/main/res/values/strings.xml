@@ -102,5 +102,8 @@
     <string name="foodHome2">Daily Calories Target</string>
     <string name="foodHis1">Food\'s Calories Report</string>
     <string name="foodHis2">0cal/day</string>
+    <string name="foodHis3">80%</string>
+    <string name="foodHis4">0cal/week</string>
+    <string name="foodHis5">50000cal/week</string>
 
 </resources>
